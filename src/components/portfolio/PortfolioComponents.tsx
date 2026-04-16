@@ -265,10 +265,8 @@ export function MetricCard({
         {kpi ? (
           <p
             style={{
-              fontFamily: fontStacks.figtree,
-              fontSize: "clamp(1.75rem, 4vw, 2.25rem)",
+              ...typeTokens.body.l,
               fontWeight: 700,
-              lineHeight: "1.15",
               color: colorTokens.text.primary,
             }}
           >
@@ -276,23 +274,10 @@ export function MetricCard({
           </p>
         ) : null}
         <p
-          style={
-            kpi
-              ? {
-                  fontFamily: fontStacks.figtree,
-                  fontSize: "clamp(1rem, 1.5vw, 1.25rem)",
-                  fontWeight: 400,
-                  lineHeight: "1.6",
-                  color: colorTokens.text.primary,
-                }
-              : {
-                  fontFamily: fontStacks.inter,
-                  fontSize: "clamp(0.95rem, 1.15vw, 1rem)",
-                  fontWeight: 400,
-                  lineHeight: "1.6",
-                  color: colorTokens.text.primary,
-                }
-          }
+          style={{
+            ...typeTokens.body.s,
+            color: colorTokens.text.primary,
+          }}
         >
           {description}
         </p>

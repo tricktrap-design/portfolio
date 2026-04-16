@@ -1,4 +1,10 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type RefObject,
+} from "react";
 
 import {
   aboutPageData,
@@ -94,15 +100,18 @@ function HeroInfoCard({
 
 function Header({
   currentPage,
+  onNavigateToSelectedWork,
   onNavigate,
 }: {
   currentPage: PortfolioPage;
   onNavigate: (page: PortfolioPage) => void;
+  onNavigateToSelectedWork: () => void;
 }) {
   const activeHome = currentPage === "home" || currentPage === "case-study";
 
   return (
     <header
+      data-portfolio-header="true"
       className="sticky top-0 z-40 border-b backdrop-blur-[6px]"
       style={{
         borderColor: colorTokens.border.default,
@@ -141,7 +150,7 @@ function Header({
         >
           <PortfolioButton
             label="Work"
-            onClick={() => onNavigate("home")}
+            onClick={onNavigateToSelectedWork}
             variant={activeHome ? "default" : "secondary"}
           />
           <PortfolioButton
@@ -265,9 +274,16 @@ function Hero({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
   );
 }
 
-function WorkIndex({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
+function WorkIndex({
+  onOpenCaseStudy,
+  sectionRef,
+}: {
+  onOpenCaseStudy: () => void;
+  sectionRef: RefObject<HTMLElement>;
+}) {
   return (
     <section
+      ref={sectionRef}
       className="border-b"
       style={{ borderColor: colorTokens.border.default }}
     >
@@ -335,13 +351,18 @@ function AboutStrip() {
 
 function HomePage({
   onOpenCaseStudy,
+  selectedWorkRef,
 }: {
   onOpenCaseStudy: () => void;
+  selectedWorkRef: RefObject<HTMLElement>;
 }) {
   return (
     <main>
       <Hero onOpenCaseStudy={onOpenCaseStudy} />
-      <WorkIndex onOpenCaseStudy={onOpenCaseStudy} />
+      <WorkIndex
+        onOpenCaseStudy={onOpenCaseStudy}
+        sectionRef={selectedWorkRef}
+      />
       <AboutStrip />
     </main>
   );
@@ -990,6 +1011,10 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
 
 export default function BauhausPortfolioPrototype() {
   const [page, setPage] = useState<PortfolioPage>(getPageFromLocation);
+  const [pendingScrollTarget, setPendingScrollTarget] = useState<
+    "selected-work" | null
+  >(null);
+  const selectedWorkRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -1020,6 +1045,39 @@ export default function BauhausPortfolioPrototype() {
     window.scrollTo({ top: 0 });
   }, [page]);
 
+  useEffect(() => {
+    if (page !== "home" || pendingScrollTarget !== "selected-work") return;
+
+    const frame = window.requestAnimationFrame(() => {
+      const selectedWorkSection = selectedWorkRef.current;
+      if (!selectedWorkSection) return;
+
+      const header = document.querySelector('[data-portfolio-header="true"]');
+      const headerOffset =
+        header instanceof HTMLElement ? header.getBoundingClientRect().height : 0;
+      const sectionTop =
+        selectedWorkSection.getBoundingClientRect().top + window.scrollY;
+
+      window.scrollTo({
+        top: Math.max(sectionTop - headerOffset - 16, 0),
+        behavior: "smooth",
+      });
+      setPendingScrollTarget(null);
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [page, pendingScrollTarget]);
+
+  const handleNavigate = (nextPage: PortfolioPage) => {
+    setPendingScrollTarget(null);
+    setPage(nextPage);
+  };
+
+  const handleNavigateToSelectedWork = () => {
+    setPendingScrollTarget("selected-work");
+    setPage("home");
+  };
+
   return (
     <div
       className="min-h-screen"
@@ -1029,16 +1087,21 @@ export default function BauhausPortfolioPrototype() {
         fontFamily: fontStacks.inter,
       }}
     >
-      <Header currentPage={page} onNavigate={setPage} />
+      <Header
+        currentPage={page}
+        onNavigate={handleNavigate}
+        onNavigateToSelectedWork={handleNavigateToSelectedWork}
+      />
 
       {page === "home" ? (
         <HomePage
-          onOpenCaseStudy={() => setPage("case-study")}
+          onOpenCaseStudy={() => handleNavigate("case-study")}
+          selectedWorkRef={selectedWorkRef}
         />
       ) : page === "about" ? (
         <AboutPage />
       ) : (
-        <CaseStudyPage onBack={() => setPage("home")} />
+        <CaseStudyPage onBack={() => handleNavigate("home")} />
       )}
 
       <PortfolioFooter
