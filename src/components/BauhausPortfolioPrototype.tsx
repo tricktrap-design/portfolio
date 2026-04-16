@@ -1,3 +1,4 @@
+import { ArrowUpRight, MoveLeft } from "lucide-react";
 import {
   useEffect,
   useRef,
@@ -241,7 +242,7 @@ function Hero({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
                 className="w-full justify-center self-start sm:w-fit sm:justify-start"
                 label="open case study"
                 onClick={onOpenCaseStudy}
-                trailingIcon="↗"
+                trailingIcon={ArrowUpRight}
               />
             </div>
           </div>
@@ -486,7 +487,7 @@ function AboutPage() {
             <PortfolioButton
               href={resumeUrl}
               label="Download CV"
-              trailingIcon="↗"
+              trailingIcon={ArrowUpRight}
               variant="secondary"
             />
 
@@ -636,7 +637,7 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
 
           <PortfolioButton
             label="back"
-            leadingIcon="←"
+            leadingIcon={MoveLeft}
             onClick={onBack}
             trailingIcon={undefined}
             variant="ghost"

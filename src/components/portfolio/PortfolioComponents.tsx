@@ -1,3 +1,4 @@
+import { ArrowUpRight, type LucideIcon } from "lucide-react";
 import type { CSSProperties, ReactNode } from "react";
 
 import type {
@@ -105,10 +106,10 @@ type PortfolioButtonProps = {
   disabled?: boolean;
   href?: string;
   label?: string;
-  leadingIcon?: ReactNode;
+  leadingIcon?: LucideIcon;
   onClick?: () => void;
   showText?: boolean;
-  trailingIcon?: ReactNode;
+  trailingIcon?: LucideIcon;
   variant?: PortfolioButtonVariant;
 };
 
@@ -124,6 +125,8 @@ export function PortfolioButton({
   variant = "default",
 }: PortfolioButtonProps) {
   const isGhost = variant === "ghost";
+  const LeadingIcon = leadingIcon;
+  const TrailingIcon = trailingIcon;
   const classes = joinClasses(
     "inline-flex w-fit max-w-full items-center gap-[10px] whitespace-normal text-left transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transform-none motion-reduce:transition-none",
     isGhost ? "p-2" : "border px-4 py-3 sm:py-4",
@@ -147,33 +150,23 @@ export function PortfolioButton({
 
   const content = (
     <>
-      {leadingIcon ? (
-        <span
-          aria-hidden
-          className="shrink-0"
-          style={{
-            fontFamily: fontStacks.inter,
-            fontSize: "14px",
-            fontWeight: 500,
-            lineHeight: "16px",
-          }}
-        >
-          {leadingIcon}
+      {LeadingIcon ? (
+        <span className="inline-flex shrink-0 items-center justify-center">
+          <LeadingIcon
+            aria-hidden="true"
+            className="h-4 w-4"
+            strokeWidth={1.75}
+          />
         </span>
       ) : null}
       {showText ? <span>{label}</span> : null}
-      {trailingIcon ? (
-        <span
-          aria-hidden
-          className="shrink-0"
-          style={{
-            fontFamily: fontStacks.inter,
-            fontSize: "14px",
-            fontWeight: 500,
-            lineHeight: "16px",
-          }}
-        >
-          {trailingIcon}
+      {TrailingIcon ? (
+        <span className="inline-flex shrink-0 items-center justify-center">
+          <TrailingIcon
+            aria-hidden="true"
+            className="h-4 w-4"
+            strokeWidth={1.75}
+          />
         </span>
       ) : null}
     </>
@@ -265,7 +258,7 @@ export function MetricCard({
         {kpi ? (
           <p
             style={{
-              ...typeTokens.body.l,
+              ...typeTokens.body.xl,
               fontWeight: 700,
               color: colorTokens.text.primary,
             }}
@@ -287,7 +280,7 @@ export function MetricCard({
           className="self-start"
           label={ctaLabel}
           onClick={onCtaClick}
-          trailingIcon="↗"
+          trailingIcon={ArrowUpRight}
           variant="ghost"
         />
       ) : null}
@@ -504,7 +497,7 @@ export function CaseStudyItem({
         <PortfolioButton
           label=""
           showText={false}
-          trailingIcon="↗"
+          trailingIcon={ArrowUpRight}
           variant="ghost"
         />
       </div>
