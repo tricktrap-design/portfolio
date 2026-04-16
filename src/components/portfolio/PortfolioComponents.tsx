@@ -497,7 +497,7 @@ export function CaseStudyItem({
             ...subtleLabelStyle,
             color:
               item.typeAccent === "rust"
-                ? colorTokens.accent.blue
+                ? colorTokens.accent.rust
                 : colorTokens.text.subtle,
           }}
         >
