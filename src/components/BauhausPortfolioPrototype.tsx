@@ -683,12 +683,19 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
           <SectionLabel color="rust">Executive Summary</SectionLabel>
           <div className="mt-7 grid items-start gap-4 xl:grid-cols-[381.82px_minmax(0,1fr)_minmax(0,1fr)]">
             <MetricCard
-              className="xl:row-span-2"
+              className="xl:row-span-2 h-full"
               {...caseStudyData.executiveSummary[0]}
             />
-            <MetricCard {...caseStudyData.executiveSummary[1]} />
-            <MetricCard {...caseStudyData.executiveSummary[2]} />
-            <MetricCard {...caseStudyData.executiveSummary[3]} />
+            <MetricCard
+              className="h-full"            
+            {...caseStudyData.executiveSummary[1]} />
+            <MetricCard
+              className="h-full"            
+              {...caseStudyData.executiveSummary[2]} />
+            <MetricCard
+              className="xl:col-span-2"
+              {...caseStudyData.executiveSummary[3]}
+            />
           </div>
         </div>
       </section>
