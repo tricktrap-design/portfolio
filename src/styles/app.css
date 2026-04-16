@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-text-primary: #0f1115;
+  --color-text-secondary: rgba(15, 17, 21, 0.78);
+  --color-text-subtle: rgba(15, 17, 21, 0.55);
+  --color-text-muted: rgba(15, 17, 21, 0.45);
+  --color-background-base: #e8e6e3;
+  --color-background-subtle: #f1efec;
+  --color-background-header: rgba(237, 235, 231, 0.84);
+  --color-border-default: rgba(15, 17, 21, 0.16);
+  --color-border-subtle: rgba(15, 17, 21, 0.08);
+  --color-accent-blue: #1b73bd;
+  --color-accent-rust: #c84c2a;
+  --color-accent-yellow: #f2c94c;
+  --font-family-inter: "Inter", "Helvetica Neue", "Avenir Next", "Segoe UI", sans-serif;
+  --font-family-figtree: "Figtree", "Helvetica Neue", "Avenir Next", "Segoe UI", sans-serif;
+  color: var(--color-text-primary);
+  background: var(--color-background-base);
+  font-family:
+    "Helvetica Neue", "Avenir Next", "Segoe UI", sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-width: 320px;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--color-accent-blue);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: rgba(27, 115, 189, 0.2);
+}

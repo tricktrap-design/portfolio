@@ -1,0 +1,4 @@
+interface:
+  display_name: "Portfolio Figma Components"
+  short_description: "Rebuild portfolio UI components from Figma"
+  default_prompt: "Use $portfolio-figma-components to update a portfolio component from Figma and wire it into the site."
