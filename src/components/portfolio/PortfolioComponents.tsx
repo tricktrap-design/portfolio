@@ -125,8 +125,8 @@ export function PortfolioButton({
 }: PortfolioButtonProps) {
   const isGhost = variant === "ghost";
   const classes = joinClasses(
-    "inline-flex w-fit items-center gap-[10px] transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transform-none motion-reduce:transition-none",
-    isGhost ? "p-2" : "border p-4",
+    "inline-flex w-fit max-w-full items-center gap-[10px] whitespace-normal text-left transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transform-none motion-reduce:transition-none",
+    isGhost ? "p-2" : "border px-4 py-3 sm:py-4",
     !disabled && "hover:-translate-y-[4px] active:translate-y-0",
     disabled && "cursor-not-allowed opacity-60",
     className
@@ -212,7 +212,7 @@ export function ValueChip({
   return (
     <div
       className={joinClasses(
-        "inline-flex w-fit items-center gap-2 border px-[14px] py-[10px]",
+        "inline-flex max-w-full items-center gap-2 border px-[14px] py-[10px]",
         className
       )}
       style={{
@@ -251,7 +251,10 @@ export function MetricCard({
 }) {
   return (
     <article
-      className={joinClasses("self-start flex flex-col gap-2 border p-4", className)}
+      className={joinClasses(
+        "flex h-full min-w-0 flex-col gap-2 border p-4 sm:p-5",
+        className
+      )}
       style={{
         borderColor: colorTokens.border.default,
         background: cardSurfaces[tint],
@@ -263,9 +266,9 @@ export function MetricCard({
           <p
             style={{
               fontFamily: fontStacks.figtree,
-              fontSize: "26px",
+              fontSize: "clamp(1.75rem, 4vw, 2.25rem)",
               fontWeight: 700,
-              lineHeight: "40px",
+              lineHeight: "1.15",
               color: colorTokens.text.primary,
             }}
           >
@@ -277,16 +280,16 @@ export function MetricCard({
             kpi
               ? {
                   fontFamily: fontStacks.figtree,
-                  fontSize: "20px",
+                  fontSize: "clamp(1rem, 1.5vw, 1.25rem)",
                   fontWeight: 400,
-                  lineHeight: "32px",
+                  lineHeight: "1.6",
                   color: colorTokens.text.primary,
                 }
               : {
                   fontFamily: fontStacks.inter,
-                  fontSize: "14px",
+                  fontSize: "clamp(0.95rem, 1.15vw, 1rem)",
                   fontWeight: 400,
-                  lineHeight: "22px",
+                  lineHeight: "1.6",
                   color: colorTokens.text.primary,
                 }
           }
@@ -333,7 +336,7 @@ export function BulletCard({
 
   return (
     <article
-      className={joinClasses("flex flex-col gap-4 border p-5", className)}
+      className={joinClasses("flex flex-col gap-4 border p-4 sm:p-5", className)}
       style={{
         borderColor:
           variant === "secondary"
@@ -377,7 +380,7 @@ export function OutcomeCard({
 }) {
   return (
     <article
-      className={joinClasses("flex items-start gap-3 border p-4", className)}
+      className={joinClasses("flex items-start gap-3 border p-4 sm:p-5", className)}
       style={{
         borderColor: colorTokens.border.default,
         background: colorTokens.background.base,
@@ -482,7 +485,7 @@ export function CaseStudyItem({
   const content = (
     <>
       <p style={subtleLabelStyle}>{item.index}</p>
-      <div className="flex flex-col gap-[6px] uppercase md:max-w-[480px]">
+      <div className="min-w-0 flex flex-col gap-[6px] uppercase md:max-w-[480px]">
         <h3
           style={{
             ...typeTokens.heading.l,
@@ -524,7 +527,7 @@ export function CaseStudyItem({
   );
 
   const classes = joinClasses(
-    "grid gap-6 border px-5 py-[18px] md:grid-cols-[56px_minmax(0,0.95fr)_minmax(0,1.45fr)_40px] md:items-start",
+    "grid gap-6 border px-4 py-[18px] sm:px-5 md:grid-cols-[56px_minmax(0,0.95fr)_minmax(0,1.45fr)_40px] md:items-start",
     interactive
       ? "w-full text-left transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[4px] active:translate-y-0 motion-reduce:transform-none motion-reduce:transition-none"
       : "",

@@ -80,9 +80,9 @@ function HeroInfoCard({
         className="mt-2"
         style={{
           fontFamily: fontStacks.inter,
-          fontSize: "14px",
+          fontSize: "clamp(0.95rem, 1.15vw, 1rem)",
           fontWeight: 400,
-          lineHeight: "22px",
+          lineHeight: "1.6",
           color: colorTokens.text.primary,
         }}
       >
@@ -109,7 +109,7 @@ function Header({
         background: colorTokens.background.header,
       }}
     >
-      <div className="mx-auto flex h-[88px] w-full max-w-[1512px] items-center justify-between gap-4 px-10 py-5">
+      <div className="mx-auto flex min-h-[76px] w-full max-w-[1512px] flex-wrap items-start justify-between gap-x-4 gap-y-3 px-4 py-4 sm:min-h-[88px] sm:items-center sm:px-5 sm:py-5 md:px-8 lg:px-10">
         <button
           aria-label="Go to homepage"
           className="text-left"
@@ -127,10 +127,7 @@ function Header({
           </div>
           <div
             style={{
-              fontFamily: fontStacks.figtree,
-              fontSize: "26px",
-              fontWeight: 700,
-              lineHeight: "40px",
+              ...typeTokens.header.title,
               color: colorTokens.text.primary,
             }}
           >
@@ -138,7 +135,10 @@ function Header({
           </div>
         </button>
 
-        <nav aria-label="Primary" className="flex flex-wrap items-center gap-2">
+        <nav
+          aria-label="Primary"
+          className="flex w-full flex-wrap items-center gap-2 sm:w-auto sm:justify-end"
+        >
           <PortfolioButton
             label="Work"
             onClick={() => onNavigate("home")}
@@ -161,7 +161,7 @@ function Hero({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
       className="relative border-b"
       style={{ borderColor: colorTokens.border.default }}
     >
-      <div className="mx-auto w-full max-w-[1512px] px-5 py-8 md:px-8 lg:px-10 lg:py-[44px] xl:h-[712px]">
+      <div className="mx-auto w-full max-w-[1512px] px-4 py-6 sm:px-5 sm:py-8 md:px-8 lg:px-10 lg:py-[44px] xl:min-h-[712px]">
         <div
           className="absolute inset-y-0 left-[120px] hidden border-l xl:block"
           style={{ borderColor: colorTokens.border.default }}
@@ -175,9 +175,10 @@ function Hero({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
           style={{ borderColor: colorTokens.border.default }}
         />
 
-        <div className="grid h-full gap-8 xl:grid-cols-[912px_480px] xl:gap-10">
+        <div className="grid h-full gap-8 xl:grid-cols-[minmax(0,1.9fr)_minmax(320px,480px)] xl:gap-10">
           <div className="flex h-full flex-col gap-10">
             <div
+              className="max-w-[8ch]"
               style={{
                 ...typeTokens.display.xl,
                 color: colorTokens.text.primary,
@@ -189,7 +190,7 @@ function Hero({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
             </div>
 
             <div
-              className="max-w-[478px]"
+              className="max-w-[34rem]"
               style={{
                 ...typeTokens.body.m,
                 color: colorTokens.text.primary,
@@ -212,20 +213,23 @@ function Hero({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
               </p>
             </div>
 
-            <div className="mt-auto grid w-full gap-4 md:grid-cols-[1fr_0.75fr]" style={{zIndex:"9"}}>
+            <div
+              className="mt-auto grid w-full items-start gap-4 md:grid-cols-[minmax(0,1fr)_minmax(260px,0.75fr)]"
+              style={{ zIndex: "9" }}
+            >
               <HeroInfoCard
                 description={homePageData.hero.latestWork.description}
                 title={homePageData.hero.latestWork.title}
               />
               <MetricCard
-                className="row-span-2"
+                className="md:row-span-2"
                 description={homePageData.hero.satisfaction.description}
                 kpi={homePageData.hero.satisfaction.kpi}
                 tint="plain"
                 title={homePageData.hero.satisfaction.title}
               />
               <PortfolioButton
-                className="self-start"
+                className="w-full justify-center self-start sm:w-fit sm:justify-start"
                 label="open case study"
                 onClick={onOpenCaseStudy}
                 trailingIcon="↗"
@@ -233,9 +237,9 @@ function Hero({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
             </div>
           </div>
 
-          <div className="grid h-full gap-4 xl:grid-rows-[1fr_auto]">
+          <div className="grid h-full gap-4 xl:grid-rows-[minmax(0,1fr)_auto]">
             <div
-              className="relative min-h-[360px] border xl:min-h-0"
+              className="relative min-h-[280px] border sm:min-h-[360px] xl:min-h-0"
               style={{ borderColor: colorTokens.border.default }}
             >
               <img
@@ -244,11 +248,11 @@ function Hero({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
                 src={homePageData.hero.portraitUrl}
               />
               <div
-                className="absolute left-[-13px] top-[-27px] h-[99px] w-[273px] border"
+                className="absolute left-[-13px] top-[-27px] hidden h-[99px] w-[273px] border lg:block"
                 style={{ borderColor: "rgba(15,17,21,0.6)" }}
               />
               <div
-                className="absolute bottom-[72px] right-[-19px] top-[202px] w-[59px]"
+                className="absolute bottom-[72px] right-[-19px] top-[202px] hidden w-[59px] lg:block"
                 style={{ background: "rgba(27,115,189,0.8)" }}
               />
             </div>
