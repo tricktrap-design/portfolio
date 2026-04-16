@@ -497,7 +497,7 @@ export function CaseStudyItem({
             ...subtleLabelStyle,
             color:
               item.typeAccent === "rust"
-                ? colorTokens.accent.rust
+                ? colorTokens.accent.blue
                 : colorTokens.text.subtle,
           }}
         >
@@ -737,8 +737,7 @@ export function PortfolioFooter({
         <span
           style={{
             ...typeTokens.label.s,
-            color: colorTokens.text.primary,
-            opacity: 0.5,
+            color: colorTokens.text.secondary,
           }}
         >
           {left}
@@ -746,8 +745,7 @@ export function PortfolioFooter({
         <span
           style={{
             ...typeTokens.label.s,
-            color: colorTokens.text.primary,
-            opacity: 0.5,
+            color: colorTokens.text.secondary,
           }}
         >
           {right}
