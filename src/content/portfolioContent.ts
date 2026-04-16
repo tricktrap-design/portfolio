@@ -116,8 +116,8 @@ export const homePageData = {
     ],
   },
   footer: {
-    left: "EMILIO ARBOLEYA",
-    right: "BUILT AS A HOMEPAGE + CASE STUDY STARTER SYSTEM",
+    left: "EMILIO ARBOLEYA 2026",
+    right: "earboleyav@gmail.com | linkedin.com/in/emilio-ux/",
   },
 };
 
