@@ -84,31 +84,31 @@ export const typeTokens = {
   body: {
     xl: {
       fontFamily: fontStacks.inter,
-      fontSize: "clamp(1.5rem, 3vw, 2.125rem)",
+      fontSize: "clamp(1.375rem, 2.2vw, 1.875rem)",
       fontWeight: 400,
-      lineHeight: "1.35",
+      lineHeight: "1.4",
     } satisfies TextToken,
     l: {
       fontFamily: fontStacks.figtree,
-      fontSize: "clamp(1.125rem, 2.1vw, 1.625rem)",
+      fontSize: "clamp(1.0625rem, 1.55vw, 1.375rem)",
       fontWeight: 400,
-      lineHeight: "1.5",
+      lineHeight: "1.55",
     } satisfies TextToken,
     m: {
       fontFamily: fontStacks.figtree,
-      fontSize: "clamp(1rem, 1.4vw, 1.25rem)",
+      fontSize: "clamp(0.98rem, 1.1vw, 1.125rem)",
       fontWeight: 400,
       lineHeight: "1.6",
     } satisfies TextToken,
     s: {
       fontFamily: fontStacks.figtree,
-      fontSize: "clamp(0.95rem, 1.15vw, 1rem)",
+      fontSize: "clamp(0.92rem, 0.95vw, 0.98rem)",
       fontWeight: 400,
       lineHeight: "1.6",
     } satisfies TextToken,
     xs: {
       fontFamily: fontStacks.figtree,
-      fontSize: "clamp(0.875rem, 1vw, 0.9rem)",
+      fontSize: "clamp(0.84rem, 0.85vw, 0.9rem)",
       fontWeight: 400,
       lineHeight: "1.45",
     } satisfies TextToken,

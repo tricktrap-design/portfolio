@@ -594,22 +594,22 @@ function ProblemQuestionRow({ text }: { text: string }) {
 
 function CaseStudyPage({ onBack }: { onBack: () => void }) {
   return (
-    <main>
+    <main className="overflow-x-clip">
       <section
-        className="relative border-b"
+        className="relative overflow-x-clip border-b"
         style={{ borderColor: colorTokens.border.default }}
       >
-        <div className="mx-auto w-full max-w-[1512px] px-5 py-8 md:px-8 lg:px-10 lg:py-10">
+        <div className="mx-auto w-full max-w-[1512px] px-4 py-8 sm:px-5 md:px-8 lg:px-10 lg:py-10">
           <div
-            className="absolute inset-y-0 left-[120px] hidden border-l xl:block"
+            className="absolute inset-y-0 left-[120px] hidden border-l 2xl:block"
             style={{ borderColor: colorTokens.border.default }}
           />
           <div
-            className="absolute inset-y-0 left-[892px] hidden border-l xl:block"
+            className="absolute inset-y-0 left-[892px] hidden border-l 2xl:block"
             style={{ borderColor: colorTokens.border.default }}
           />
           <div
-            className="absolute inset-y-0 right-[120px] hidden border-l xl:block"
+            className="absolute inset-y-0 right-[120px] hidden border-l 2xl:block"
             style={{ borderColor: colorTokens.border.default }}
           />
 
@@ -621,11 +621,11 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
             variant="ghost"
           />
 
-          <div className="mt-4 xl:h-[539px]">
-            <div className="grid h-full gap-8 xl:grid-cols-[1fr_744px] xl:gap-0">
+          <div className="mt-4 2xl:h-[539px]">
+            <div className="grid h-full gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,36rem)] 2xl:grid-cols-[1fr_744px] 2xl:gap-0">
               <div className="relative">
                 <div
-                  className="hidden xl:block"
+                  className="hidden 2xl:block"
                   style={{
                     position: "absolute",
                     left: "453px",
@@ -667,14 +667,17 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
 
               <CaseStudyMediaFrame
                 alt={caseStudyData.hero.imageAlt}
-                className="relative h-[360px] border xl:mt-[34px] xl:h-[505px] xl:w-[744px]"
+                className="relative h-[360px] border xl:h-[420px] 2xl:mt-[34px] 2xl:h-[505px] 2xl:w-[744px]"
                 mediaClassName="h-full w-full object-cover"
                 src={caseStudyData.hero.imageUrl}
               />
             </div>
           </div>
 
-          <div className="grid items-start gap-4 pt-6 xl:grid-cols-[447px_506px_447px]" style={{position:"relative", zIndex:"9"}}>
+          <div
+            className="grid items-start gap-4 pt-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-[447px_506px_447px]"
+            style={{ position: "relative", zIndex: "9" }}
+          >
             {caseStudyData.metrics.map((metric) => (
               <MetricCard key={metric.title} {...metric} />
             ))}
@@ -682,32 +685,33 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
         </div>
       </section>
 
-      <section className="border-b" style={{ borderColor: colorTokens.border.default }}>
-        <div className="mx-auto w-full max-w-[1512px] px-5 py-10 md:px-8 lg:px-10">
+      <section className="overflow-x-clip border-b" style={{ borderColor: colorTokens.border.default }}>
+        <div className="mx-auto w-full max-w-[1512px] px-4 py-10 sm:px-5 md:px-8 lg:px-10">
           <SectionLabel color="rust">Executive Summary</SectionLabel>
-          <div className="mt-7 grid items-start gap-4 xl:grid-cols-[381.82px_minmax(0,1fr)_minmax(0,1fr)]">
+          <div className="mt-7 grid items-start gap-4 xl:grid-cols-2 2xl:grid-cols-[381.82px_minmax(0,1fr)_minmax(0,1fr)]">
             <MetricCard
-              className="xl:row-span-2 h-full"
+              className="h-full 2xl:row-span-2"
               {...caseStudyData.executiveSummary[0]}
             />
             <MetricCard
-              className="h-full"            
-            {...caseStudyData.executiveSummary[1]} />
+              className="h-full"
+              {...caseStudyData.executiveSummary[1]}
+            />
             <MetricCard
-              className="h-full"            
+              className="h-full"
               {...caseStudyData.executiveSummary[2]} />
             <MetricCard
-              className="xl:col-span-2"
+              className="2xl:col-span-2"
               {...caseStudyData.executiveSummary[3]}
             />
           </div>
         </div>
       </section>
 
-      <section className="border-b" style={{ borderColor: colorTokens.border.default }}>
-        <div className="mx-auto w-full max-w-[1512px] px-5 py-10 md:px-8 lg:px-10">
+      <section className="overflow-x-clip border-b" style={{ borderColor: colorTokens.border.default }}>
+        <div className="mx-auto w-full max-w-[1512px] px-4 py-10 sm:px-5 md:px-8 lg:px-10">
           <SectionLabel color="blue">Strategic Context</SectionLabel>
-          <div className="mt-7 grid gap-10 xl:grid-cols-[836px_556px]">
+          <div className="mt-7 grid gap-10 xl:grid-cols-2 2xl:grid-cols-[836px_556px]">
             <div className="space-y-6">
               <p
                 style={{
@@ -781,10 +785,10 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
         </div>
       </section>
 
-      <section className="border-b" style={{ borderColor: colorTokens.border.default }}>
-        <div className="mx-auto w-full max-w-[1512px] px-5 py-10 md:px-8 lg:px-10">
+      <section className="overflow-x-clip border-b" style={{ borderColor: colorTokens.border.default }}>
+        <div className="mx-auto w-full max-w-[1512px] px-4 py-10 sm:px-5 md:px-8 lg:px-10">
           <SectionLabel color="yellow">My Role &amp; Scope</SectionLabel>
-          <div className="mt-7 grid gap-10 xl:grid-cols-[835px_557px]">
+          <div className="mt-7 grid gap-10 xl:grid-cols-2 2xl:grid-cols-[835px_557px]">
             <BulletCard items={caseStudyData.role.owned} size="m" title="What I owned" />
             <BulletCard
               items={caseStudyData.role.contributed}
@@ -796,10 +800,10 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
         </div>
       </section>
 
-      <section className="border-b" style={{ borderColor: colorTokens.border.default }}>
-        <div className="mx-auto w-full max-w-[1512px] px-5 py-12 md:px-8 lg:px-10">
+      <section className="overflow-x-clip border-b" style={{ borderColor: colorTokens.border.default }}>
+        <div className="mx-auto w-full max-w-[1512px] px-4 py-12 sm:px-5 md:px-8 lg:px-10">
           <SectionLabel color="rust">Problem Definition</SectionLabel>
-          <div className="mt-7 grid gap-4 xl:grid-cols-[708px_708px]">
+          <div className="mt-7 grid gap-4 xl:grid-cols-2 2xl:grid-cols-[708px_708px]">
             <div className="space-y-4">
               <BulletCard
                 items={caseStudyData.problemDefinition.known}
@@ -863,17 +867,17 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
         </div>
       </section>
 
-      <section className="border-b" style={{ borderColor: colorTokens.border.default }}>
-        <div className="mx-auto w-full max-w-[1512px] px-5 py-10 md:px-8 lg:px-10">
+      <section className="overflow-x-clip border-b" style={{ borderColor: colorTokens.border.default }}>
+        <div className="mx-auto w-full max-w-[1512px] px-4 py-10 sm:px-5 md:px-8 lg:px-10">
           <SectionLabel color="blue">Key Design Decisions</SectionLabel>
           <DecisionTable className="mt-7" rows={caseStudyData.decisions} />
         </div>
       </section>
 
-      <section className="border-b" style={{ borderColor: colorTokens.border.default }}>
-        <div className="mx-auto w-full max-w-[1512px] px-5 py-10 md:px-8 lg:px-10">
+      <section className="overflow-x-clip border-b" style={{ borderColor: colorTokens.border.default }}>
+        <div className="mx-auto w-full max-w-[1512px] px-4 py-10 sm:px-5 md:px-8 lg:px-10">
           <SectionLabel color="yellow">Systems Thinking</SectionLabel>
-          <div className="mt-7 grid gap-4 xl:grid-cols-[708px_708px]">
+          <div className="mt-7 grid gap-4 xl:grid-cols-2 2xl:grid-cols-[708px_708px]">
             <div className="space-y-8">
               <CaseStudyMediaFrame
                 alt={caseStudyData.systems.imageAlt}
@@ -931,8 +935,8 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
         </div>
       </section>
 
-      <section className="border-b" style={{ borderColor: colorTokens.border.default }}>
-        <div className="mx-auto w-full max-w-[1512px] px-5 py-10 md:px-8 lg:px-10">
+      <section className="overflow-x-clip border-b" style={{ borderColor: colorTokens.border.default }}>
+        <div className="mx-auto w-full max-w-[1512px] px-4 py-10 sm:px-5 md:px-8 lg:px-10">
           <SectionLabel color="rust">Outcomes</SectionLabel>
 
           <p
@@ -945,7 +949,7 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
             {caseStudyData.outcomeNote}
           </p>
 
-          <div className="mt-8 grid items-start gap-4 xl:grid-cols-[447px_506px_447px]">
+          <div className="mt-8 grid items-start gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-[447px_506px_447px]">
             {caseStudyData.outcomes.metrics.map((metric) => (
               <MetricCard key={metric.title} {...metric} />
             ))}
