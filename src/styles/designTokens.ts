@@ -9,7 +9,7 @@ export const colorTokens = {
   text: {
     primary: "#0F1115",
     secondary: "rgba(15,17,21,0.78)",
-    subtle: "rgba(15,17,21,0.55)",
+    subtle: "rgba(15,17,21,0.60)",
     muted: "rgba(15,17,21,0.45)",
     faint: "rgba(15,17,21,0.50)",
     inverse: "#E8E6E3",

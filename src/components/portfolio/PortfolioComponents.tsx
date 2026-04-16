@@ -101,23 +101,31 @@ export function SectionLabel({
 
 export type PortfolioButtonVariant = "default" | "secondary" | "ghost";
 
-type PortfolioButtonProps = {
+type PortfolioButtonBaseProps = {
   className?: string;
   disabled?: boolean;
   href?: string;
-  label?: string;
   leadingIcon?: LucideIcon;
   onClick?: () => void;
-  showText?: boolean;
   trailingIcon?: LucideIcon;
   variant?: PortfolioButtonVariant;
 };
+
+type PortfolioButtonProps =
+  | (PortfolioButtonBaseProps & {
+      label?: string;
+      showText?: true;
+    })
+  | (PortfolioButtonBaseProps & {
+      label: string;
+      showText: false;
+    });
 
 export function PortfolioButton({
   className,
   disabled = false,
   href,
-  label = "Open case study",
+  label,
   leadingIcon,
   onClick,
   showText = true,
@@ -127,6 +135,10 @@ export function PortfolioButton({
   const isGhost = variant === "ghost";
   const LeadingIcon = leadingIcon;
   const TrailingIcon = trailingIcon;
+  const resolvedLabel =
+    typeof label === "string" && label.trim().length > 0
+      ? label
+      : "Open case study";
   const classes = joinClasses(
     "inline-flex w-fit max-w-full items-center gap-[10px] whitespace-normal text-left transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transform-none motion-reduce:transition-none",
     isGhost ? "p-2" : "border px-4 py-3 sm:py-4",
@@ -159,7 +171,7 @@ export function PortfolioButton({
           />
         </span>
       ) : null}
-      {showText ? <span>{label}</span> : null}
+      {showText ? <span>{resolvedLabel}</span> : null}
       {TrailingIcon ? (
         <span className="inline-flex shrink-0 items-center justify-center">
           <TrailingIcon
@@ -174,7 +186,13 @@ export function PortfolioButton({
 
   if (href) {
     return (
-      <a aria-disabled={disabled} className={classes} href={href} style={style}>
+      <a
+        aria-disabled={disabled}
+        aria-label={!showText ? resolvedLabel : undefined}
+        className={classes}
+        href={href}
+        style={style}
+      >
         {content}
       </a>
     );
@@ -182,6 +200,7 @@ export function PortfolioButton({
 
   return (
     <button
+      aria-label={!showText ? resolvedLabel : undefined}
       className={classes}
       disabled={disabled}
       onClick={onClick}
@@ -495,7 +514,7 @@ export function CaseStudyItem({
       </div>
       <div className="md:justify-self-end">
         <PortfolioButton
-          label=""
+          label={`Open ${item.title} case study`}
           showText={false}
           trailingIcon={ArrowUpRight}
           variant="ghost"
