@@ -26,6 +26,7 @@ import {
   SectionLabel,
   ValueChip,
 } from "./portfolio/PortfolioComponents";
+import { ScrollReveal, useScrollReveal } from "./ScrollReveal";
 
 function getPageFromLocation(): PortfolioPage {
   if (typeof window === "undefined") return "home";
@@ -166,6 +167,10 @@ function Header({
 }
 
 function Hero({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
+  const nameReveal = useScrollReveal();
+  const introReveal = useScrollReveal({ variant: "fade" });
+  const portraitReveal = useScrollReveal({ delay: 70 });
+
   return (
     <section
       className="relative border-b"
@@ -188,8 +193,10 @@ function Hero({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
         <div className="grid h-full gap-8 xl:grid-cols-[minmax(0,1.9fr)_minmax(320px,480px)] xl:gap-10">
           <div className="flex h-full flex-col gap-10">
             <div
-              className="max-w-[8ch]"
+              ref={nameReveal.ref}
+              className={`${nameReveal.className} max-w-[8ch]`}
               style={{
+                ...nameReveal.style,
                 ...typeTokens.display.xl,
                 color: colorTokens.text.primary,
               }}
@@ -200,8 +207,10 @@ function Hero({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
             </div>
 
             <div
-              className="max-w-[34rem]"
+              ref={introReveal.ref}
+              className={`${introReveal.className} max-w-[34rem]`}
               style={{
+                ...introReveal.style,
                 ...typeTokens.body.m,
                 color: colorTokens.text.primary,
               }}
@@ -223,8 +232,9 @@ function Hero({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
               </p>
             </div>
 
-            <div
+            <ScrollReveal
               className="mt-auto grid w-full items-start gap-4 md:grid-cols-[minmax(0,1fr)_minmax(260px,0.75fr)]"
+              delay={40}
               style={{ zIndex: "9" }}
             >
               <HeroInfoCard
@@ -238,19 +248,22 @@ function Hero({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
                 tint="plain"
                 title={homePageData.hero.satisfaction.title}
               />
-              <PortfolioButton
-                className="w-full justify-center self-start sm:w-fit sm:justify-start"
-                label="open case study"
-                onClick={onOpenCaseStudy}
-                trailingIcon={ArrowUpRight}
-              />
-            </div>
+              <div>
+                <PortfolioButton
+                  className="w-full justify-center self-start sm:w-fit sm:justify-start"
+                  label="open case study"
+                  onClick={onOpenCaseStudy}
+                  trailingIcon={ArrowUpRight}
+                />
+              </div>
+            </ScrollReveal>
           </div>
 
           <div className="grid h-full gap-4 xl:grid-rows-[minmax(0,1fr)_auto]">
             <div
-              className="relative min-h-[280px] border sm:min-h-[360px] xl:min-h-0"
-              style={{ borderColor: colorTokens.border.default }}
+              ref={portraitReveal.ref}
+              className={`${portraitReveal.className} relative min-h-[280px] border sm:min-h-[360px]`}
+              style={{ ...portraitReveal.style, borderColor: colorTokens.border.default }}
             >
               <img
                 alt="Portrait of Emilio Arboleya"
@@ -270,7 +283,9 @@ function Hero({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
               />
             </div>
 
-            <HeroAboutCard />
+            <ScrollReveal delay={110}>
+              <HeroAboutCard />
+            </ScrollReveal>
           </div>
         </div>
       </div>
@@ -292,17 +307,18 @@ function WorkIndex({
       style={{ borderColor: colorTokens.border.default }}
     >
       <div className="mx-auto flex w-full max-w-[1512px] flex-col gap-8 px-5 py-10 md:px-8 lg:px-10 lg:py-12 xl:flex-row xl:gap-12">
-        <div className="shrink-0 xl:w-[280px]">
+        <ScrollReveal className="shrink-0 xl:w-[280px]" variant="fade">
           <SectionLabel color="blue">{homePageData.selectedWorkLabel}</SectionLabel>
-        </div>
+        </ScrollReveal>
 
         <div className="min-w-0 flex-1 space-y-6">
           {homePageData.workItems.map((item, index) => (
-            <CaseStudyItem
-              key={item.id}
-              item={item}
-              onClick={index === 0 ? onOpenCaseStudy : undefined}
-            />
+            <ScrollReveal key={item.id} staggerIndex={index}>
+              <CaseStudyItem
+                item={item}
+                onClick={index === 0 ? onOpenCaseStudy : undefined}
+              />
+            </ScrollReveal>
           ))}
         </div>
       </div>
@@ -319,11 +335,11 @@ function AboutStrip() {
       <div className="mx-auto w-full max-w-[1512px] px-5 py-10 md:px-8 lg:px-10 lg:py-12">
         <div className="grid gap-6">
           <div className="flex flex-col gap-6 xl:flex-row">
-            <div className="shrink-0 xl:w-[280px]">
+            <ScrollReveal className="shrink-0 xl:w-[280px]" variant="fade">
               <SectionLabel color="rust">{homePageData.about.label}</SectionLabel>
-            </div>
+            </ScrollReveal>
 
-            <div className="max-w-[980px] space-y-8">
+            <ScrollReveal className="max-w-[980px] space-y-8" delay={40}>
               {homePageData.about.paragraphs.map((paragraph) => (
                 <p
                   key={paragraph}
@@ -335,16 +351,14 @@ function AboutStrip() {
                   {paragraph}
                 </p>
               ))}
-            </div>
+            </ScrollReveal>
           </div>
 
           <div className="flex flex-wrap gap-3">
-            {homePageData.about.values.map((item) => (
-              <ValueChip
-                key={item.label}
-                accent={item.accent}
-                text={item.label}
-              />
+            {homePageData.about.values.map((item, index) => (
+              <ScrollReveal key={item.label} staggerIndex={index} variant="fade">
+                <ValueChip accent={item.accent} text={item.label} />
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -441,41 +455,58 @@ function TimelineEntry({
 }
 
 function AboutPage() {
+  const labelReveal = useScrollReveal({ variant: "fade" });
+  const nameReveal = useScrollReveal({ delay: 20 });
+  const introReveal = useScrollReveal({ delay: 40, variant: "fade" });
+  const supportingReveal = useScrollReveal({ delay: 60, variant: "fade" });
+  const ctaReveal = useScrollReveal({ delay: 90, variant: "fade" });
+  const detailsReveal = useScrollReveal({ delay: 120 });
+
   return (
     <main className="border-b" style={{ borderColor: colorTokens.border.default }}>
       <section>
         <div className="mx-auto grid max-w-[1540px] gap-12 px-5 py-10 md:px-8 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)] lg:px-10 lg:py-12">
           <div className="space-y-8 lg:sticky lg:top-[108px] lg:self-start">
-            <SectionLabel color="blue">{aboutPageData.label}</SectionLabel>
+            <div ref={labelReveal.ref} className={labelReveal.className} style={labelReveal.style}>
+              <SectionLabel color="blue">{aboutPageData.label}</SectionLabel>
+            </div>
 
-            <h1
-              style={{
-                ...typeTokens.display.l,
-                color: colorTokens.text.primary,
-                fontSize: "clamp(4rem, 10vw, 7.4rem)",
-                lineHeight: "0.9",
-              }}
-            >
-              {aboutPageData.name}
-            </h1>
+            <div ref={nameReveal.ref} className={nameReveal.className} style={nameReveal.style}>
+              <h1
+                style={{
+                  ...typeTokens.heading.xl,
+                  color: colorTokens.text.primary,
+                }}
+              >
+                {aboutPageData.name}
+              </h1>
+            </div>
 
-            <p
-              style={{
-                ...typeTokens.body.l,
-                color: colorTokens.text.primary,
-              }}
-            >
-              {aboutPageData.intro}
-            </p>
+            <div ref={introReveal.ref} className={introReveal.className} style={introReveal.style}>
+              <p
+                style={{
+                  ...typeTokens.body.l,
+                  color: colorTokens.text.primary,
+                }}
+              >
+                {aboutPageData.intro}
+              </p>
+            </div>
 
-            <p
-              style={{
-                ...typeTokens.body.s,
-                color: colorTokens.text.secondary,
-              }}
+            <div
+              ref={supportingReveal.ref}
+              className={supportingReveal.className}
+              style={supportingReveal.style}
             >
-              {aboutPageData.supporting}
-            </p>
+              <p
+                style={{
+                  ...typeTokens.body.s,
+                  color: colorTokens.text.secondary,
+                }}
+              >
+                {aboutPageData.supporting}
+              </p>
+            </div>
 
             <div className="flex flex-wrap gap-3">
               {aboutPageData.meta.map((item) => (
@@ -487,16 +518,19 @@ function AboutPage() {
               ))}
             </div>
 
-            <PortfolioButton
-              href={resumeUrl}
-              label="Download CV"
-              trailingIcon={ArrowUpRight}
-              variant="secondary"
-            />
+            <div ref={ctaReveal.ref} className={ctaReveal.className} style={ctaReveal.style}>
+              <PortfolioButton
+                href={resumeUrl}
+                label="Download CV"
+                trailingIcon={ArrowUpRight}
+                variant="secondary"
+              />
+            </div>
 
             <div
-              className="space-y-8 border-t pt-8"
-              style={{ borderColor: colorTokens.border.subtle }}
+              ref={detailsReveal.ref}
+              className={`${detailsReveal.className} space-y-8 border-t pt-8`}
+              style={{ ...detailsReveal.style, borderColor: colorTokens.border.subtle }}
             >
               <div>
                 <p style={subtleLabelStyle()}>Expertise</p>
@@ -521,8 +555,13 @@ function AboutPage() {
           </div>
 
           <div className="min-w-0">
-            {aboutPageData.timeline.map((item) => (
-              <TimelineEntry key={`${item.company}-${item.period}`} {...item} />
+            {aboutPageData.timeline.map((item, index) => (
+              <ScrollReveal
+                key={`${item.company}-${item.period}`}
+                staggerIndex={index}
+              >
+                <TimelineEntry {...item} />
+              </ScrollReveal>
             ))}
           </div>
         </div>
@@ -582,7 +621,7 @@ function CaseStudyMediaFrame({
   return (
     <div
       ref={frameRef}
-      className={className}
+      className={["min-h-[320px] overflow-hidden", className].filter(Boolean).join(" ")}
       style={{
         borderColor: colorTokens.border.default,
       }}
@@ -591,7 +630,7 @@ function CaseStudyMediaFrame({
         <video
           aria-label={alt}
           autoPlay
-          className={mediaClassName}
+          className={["block h-full w-full", mediaClassName].filter(Boolean).join(" ")}
           loop
           muted
           playsInline
@@ -601,7 +640,7 @@ function CaseStudyMediaFrame({
       ) : (
         <img
           alt={alt}
-          className={mediaClassName}
+          className={["block h-full w-full", mediaClassName].filter(Boolean).join(" ")}
           decoding="async"
           loading="lazy"
           src={src}
@@ -654,6 +693,10 @@ function ProblemQuestionRow({ text }: { text: string }) {
 }
 
 function CaseStudyPage({ onBack }: { onBack: () => void }) {
+  const heroCopyReveal = useScrollReveal({ delay: 20 });
+  const heroMediaReveal = useScrollReveal({ delay: 60 });
+  const heroMetricsReveal = useScrollReveal({ delay: 110 });
+
   return (
     <main className="overflow-x-clip">
       <section
@@ -684,9 +727,13 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
 
           <div className="mt-4 2xl:h-[539px]">
             <div className="grid h-full gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,36rem)] 2xl:grid-cols-[1fr_744px] 2xl:gap-0">
-              <div className="relative">
+              <div
+                ref={heroCopyReveal.ref}
+                className={`${heroCopyReveal.className} relative`}
+                style={heroCopyReveal.style}
+              >
                 <div
-                  className="hidden 2xl:block"
+                  className="2xl:block"
                   style={{
                     position: "absolute",
                     left: "453px",
@@ -726,18 +773,25 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
                 </div>
               </div>
 
-              <CaseStudyMediaFrame
-                alt={caseStudyData.hero.imageAlt}
-                className="relative h-[360px] border xl:h-[420px] 2xl:mt-[34px] 2xl:h-[505px] 2xl:w-[744px]"
-                mediaClassName="h-full w-full object-cover"
-                src={caseStudyData.hero.imageUrl}
-              />
+              <div
+                ref={heroMediaReveal.ref}
+                className={heroMediaReveal.className}
+                style={heroMediaReveal.style}
+              >
+                <CaseStudyMediaFrame
+                  alt={caseStudyData.hero.imageAlt}
+                  className="relative h-[360px] border xl:h-[420px] 2xl:mt-[34px] 2xl:h-[505px] 2xl:w-[744px]"
+                  mediaClassName="h-full w-full object-cover"
+                  src={caseStudyData.hero.imageUrl}
+                />
+              </div>
             </div>
           </div>
 
           <div
-            className="grid items-start gap-4 pt-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-[447px_506px_447px]"
-            style={{ position: "relative", zIndex: "9" }}
+            ref={heroMetricsReveal.ref}
+            className={`${heroMetricsReveal.className} grid items-start gap-4 pt-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-[447px_506px_447px]`}
+            style={{ ...heroMetricsReveal.style, position: "relative", zIndex: "99" }}
           >
             {caseStudyData.metrics.map((metric) => (
               <MetricCard key={metric.title} {...metric} />
@@ -748,32 +802,45 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
 
       <section className="overflow-x-clip border-b" style={{ borderColor: colorTokens.border.default }}>
         <div className="mx-auto w-full max-w-[1512px] px-4 py-10 sm:px-5 md:px-8 lg:px-10">
-          <SectionLabel color="rust">Executive Summary</SectionLabel>
+          <ScrollReveal variant="fade">
+            <SectionLabel color="rust">Executive Summary</SectionLabel>
+          </ScrollReveal>
           <div className="mt-7 grid items-start gap-4 xl:grid-cols-2 2xl:grid-cols-[381.82px_minmax(0,1fr)_minmax(0,1fr)]">
-            <MetricCard
-              className="h-full 2xl:row-span-2"
-              {...caseStudyData.executiveSummary[0]}
-            />
-            <MetricCard
-              className="h-full"
-              {...caseStudyData.executiveSummary[1]}
-            />
-            <MetricCard
-              className="h-full"
-              {...caseStudyData.executiveSummary[2]} />
-            <MetricCard
-              className="2xl:col-span-2"
-              {...caseStudyData.executiveSummary[3]}
-            />
+            {caseStudyData.executiveSummary.map((metric, index) => (
+              <ScrollReveal
+                key={metric.title}
+                className={
+                  index === 0
+                    ? "h-full 2xl:row-span-2"
+                    : index === 3
+                      ? "2xl:col-span-2"
+                      : "h-full"
+                }
+                staggerIndex={index}
+              >
+                <MetricCard
+                  className={
+                    index === 0
+                      ? "h-full 2xl:row-span-2"
+                      : index === 3
+                        ? "2xl:col-span-2"
+                        : "h-full"
+                  }
+                  {...metric}
+                />
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="overflow-x-clip border-b" style={{ borderColor: colorTokens.border.default }}>
         <div className="mx-auto w-full max-w-[1512px] px-4 py-10 sm:px-5 md:px-8 lg:px-10">
-          <SectionLabel color="blue">Strategic Context</SectionLabel>
+          <ScrollReveal variant="fade">
+            <SectionLabel color="blue">Strategic Context</SectionLabel>
+          </ScrollReveal>
           <div className="mt-7 grid gap-10 xl:grid-cols-2 2xl:grid-cols-[836px_556px]">
-            <div className="space-y-6">
+            <ScrollReveal className="space-y-6">
               <p
                 style={{
                   ...typeTokens.body.xl,
@@ -805,9 +872,9 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
                   {caseStudyData.strategic.emphasis}
                 </span>
               </p>
-            </div>
+            </ScrollReveal>
 
-            <div className="space-y-4">
+            <ScrollReveal className="space-y-4" delay={40}>
               <CaseStudyMediaFrame
                 alt={caseStudyData.strategic.imageAlt}
                 className="relative h-[396px] border"
@@ -824,14 +891,16 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
                 ]}
                 src={caseStudyData.strategic.imageUrl}
               />
-
               <div className="flex flex-wrap gap-2">
-                {caseStudyData.strategic.chips.map((chip) => (
-                  <ValueChip
+                {caseStudyData.strategic.chips.map((chip, index) => (
+                  <ScrollReveal
                     key={chip.label}
-                    accent={chip.accent}
-                    text={chip.label}
-                  />
+                    delay={20}
+                    staggerIndex={index}
+                    variant="fade"
+                  >
+                    <ValueChip accent={chip.accent} text={chip.label} />
+                  </ScrollReveal>
                 ))}
               </div>
 
@@ -841,31 +910,39 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
                 title="Why it mattered"
                 variant="secondary"
               />
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
       <section className="overflow-x-clip border-b" style={{ borderColor: colorTokens.border.default }}>
         <div className="mx-auto w-full max-w-[1512px] px-4 py-10 sm:px-5 md:px-8 lg:px-10">
-          <SectionLabel color="yellow">My Role &amp; Scope</SectionLabel>
+          <ScrollReveal variant="fade">
+            <SectionLabel color="yellow">My Role &amp; Scope</SectionLabel>
+          </ScrollReveal>
           <div className="mt-7 grid gap-10 xl:grid-cols-2 2xl:grid-cols-[835px_557px]">
-            <BulletCard items={caseStudyData.role.owned} size="m" title="What I owned" />
-            <BulletCard
-              items={caseStudyData.role.contributed}
-              size="m"
-              title="What I contributed to"
-              variant="secondary"
-            />
+            <ScrollReveal>
+              <BulletCard items={caseStudyData.role.owned} size="m" title="What I owned" />
+            </ScrollReveal>
+            <ScrollReveal delay={40}>
+              <BulletCard
+                items={caseStudyData.role.contributed}
+                size="m"
+                title="What I contributed to"
+                variant="secondary"
+              />
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
       <section className="overflow-x-clip border-b" style={{ borderColor: colorTokens.border.default }}>
         <div className="mx-auto w-full max-w-[1512px] px-4 py-12 sm:px-5 md:px-8 lg:px-10">
-          <SectionLabel color="rust">Problem Definition</SectionLabel>
+          <ScrollReveal variant="fade">
+            <SectionLabel color="rust">Problem Definition</SectionLabel>
+          </ScrollReveal>
           <div className="mt-7 grid gap-4 xl:grid-cols-2 2xl:grid-cols-[708px_708px]">
-            <div className="space-y-4">
+            <ScrollReveal className="space-y-4">
               <BulletCard
                 items={caseStudyData.problemDefinition.known}
                 size="m"
@@ -883,13 +960,20 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
               </div>
 
               <div className="space-y-2">
-                {caseStudyData.problemDefinition.uncertain.map((item) => (
-                  <ProblemQuestionRow key={item} text={item} />
+                {caseStudyData.problemDefinition.uncertain.map((item, index) => (
+                  <ScrollReveal
+                    key={item}
+                    delay={40}
+                    staggerIndex={index}
+                    variant="fade"
+                  >
+                    <ProblemQuestionRow text={item} />
+                  </ScrollReveal>
                 ))}
               </div>
-            </div>
+            </ScrollReveal>
 
-            <div className="space-y-4">
+            <ScrollReveal className="space-y-4" delay={40}>
               <CaseStudyMediaFrame
                 alt={caseStudyData.problemDefinition.imageAlt}
                 className="relative h-[380px] border"
@@ -906,14 +990,16 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
                 ]}
                 src={caseStudyData.problemDefinition.imageUrl}
               />
-
               <div className="flex flex-wrap gap-2">
-                {caseStudyData.problemDefinition.chips.map((chip) => (
-                  <ValueChip
+                {caseStudyData.problemDefinition.chips.map((chip, index) => (
+                  <ScrollReveal
                     key={chip.label}
-                    accent={chip.accent}
-                    text={chip.label}
-                  />
+                    delay={20}
+                    staggerIndex={index}
+                    variant="fade"
+                  >
+                    <ValueChip accent={chip.accent} text={chip.label} />
+                  </ScrollReveal>
                 ))}
               </div>
 
@@ -923,23 +1009,29 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
                 title="What we knew"
                 variant="secondary"
               />
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
       <section className="overflow-x-clip border-b" style={{ borderColor: colorTokens.border.default }}>
         <div className="mx-auto w-full max-w-[1512px] px-4 py-10 sm:px-5 md:px-8 lg:px-10">
-          <SectionLabel color="blue">Key Design Decisions</SectionLabel>
-          <DecisionTable className="mt-7" rows={caseStudyData.decisions} />
+          <ScrollReveal variant="fade">
+            <SectionLabel color="blue">Key Design Decisions</SectionLabel>
+          </ScrollReveal>
+          <ScrollReveal delay={20}>
+            <DecisionTable className="mt-7" rows={caseStudyData.decisions} />
+          </ScrollReveal>
         </div>
       </section>
 
       <section className="overflow-x-clip border-b" style={{ borderColor: colorTokens.border.default }}>
         <div className="mx-auto w-full max-w-[1512px] px-4 py-10 sm:px-5 md:px-8 lg:px-10">
-          <SectionLabel color="yellow">Systems Thinking</SectionLabel>
+          <ScrollReveal variant="fade">
+            <SectionLabel color="yellow">Systems Thinking</SectionLabel>
+          </ScrollReveal>
           <div className="mt-7 grid gap-4 xl:grid-cols-2 2xl:grid-cols-[708px_708px]">
-            <div className="space-y-8">
+            <ScrollReveal className="space-y-8">
               <CaseStudyMediaFrame
                 alt={caseStudyData.systems.imageAlt}
                 className="relative h-[380px] border"
@@ -960,14 +1052,16 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
                 ]}
                 src={caseStudyData.systems.imageUrl}
               />
-
               <div className="flex flex-wrap gap-2">
-                {caseStudyData.systems.chips.map((chip) => (
-                  <ValueChip
+                {caseStudyData.systems.chips.map((chip, index) => (
+                  <ScrollReveal
                     key={chip.label}
-                    accent={chip.accent}
-                    text={chip.label}
-                  />
+                    delay={20}
+                    staggerIndex={index}
+                    variant="fade"
+                  >
+                    <ValueChip accent={chip.accent} text={chip.label} />
+                  </ScrollReveal>
                 ))}
               </div>
 
@@ -977,9 +1071,9 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
                 title="What the system had to solve"
                 variant="secondary"
               />
-            </div>
+            </ScrollReveal>
 
-            <div className="space-y-4">
+            <ScrollReveal className="space-y-4" delay={40}>
               <BulletCard
                 items={caseStudyData.systems.handoff}
                 size="m"
@@ -991,58 +1085,68 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
                 title="Components and conventions defined"
                 variant="secondary"
               />
-            </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
 
       <section className="overflow-x-clip border-b" style={{ borderColor: colorTokens.border.default }}>
         <div className="mx-auto w-full max-w-[1512px] px-4 py-10 sm:px-5 md:px-8 lg:px-10">
-          <SectionLabel color="rust">Outcomes</SectionLabel>
+          <ScrollReveal variant="fade">
+            <SectionLabel color="rust">Outcomes</SectionLabel>
+          </ScrollReveal>
 
-          <p
-            className="mt-8"
-            style={{
-              ...typeTokens.body.m,
-              color: colorTokens.text.secondary,
-            }}
-          >
-            {caseStudyData.outcomeNote}
-          </p>
+          <ScrollReveal delay={20} variant="fade">
+            <p
+              className="mt-8"
+              style={{
+                ...typeTokens.body.m,
+                color: colorTokens.text.secondary,
+              }}
+            >
+              {caseStudyData.outcomeNote}
+            </p>
+          </ScrollReveal>
 
           <div className="mt-8 grid items-start gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-[447px_506px_447px]">
-            {caseStudyData.outcomes.metrics.map((metric) => (
-              <MetricCard key={metric.title} {...metric} />
+            {caseStudyData.outcomes.metrics.map((metric, index) => (
+              <ScrollReveal key={metric.title} staggerIndex={index}>
+                <MetricCard {...metric} />
+              </ScrollReveal>
             ))}
           </div>
 
-          <p
-            className="mt-8"
-            style={{
-              ...typeTokens.body.l,
-              color: colorTokens.text.secondary,
-            }}
-          >
-            {caseStudyData.outcomes.lead}
-          </p>
+          <ScrollReveal delay={30} variant="fade">
+            <p
+              className="mt-8"
+              style={{
+                ...typeTokens.body.l,
+                color: colorTokens.text.secondary,
+              }}
+            >
+              {caseStudyData.outcomes.lead}
+            </p>
+          </ScrollReveal>
 
-          <CaseStudyMediaFrame
-            alt={caseStudyData.outcomes.videoAlt}
-            className="relative mt-8 h-[922px] border"
-            mediaClassName="h-full w-full object-cover"
-            overlays={[
-              {
-                bordered: true,
-                className: "absolute left-[-13px] top-[-27px] h-[99px] w-[273px]",
-              },
-              {
-                className: "absolute bottom-[72px] right-[-19px] top-[202px] w-[59px]",
-                style: { background: "rgba(27,115,189,0.8)" },
-              },
-            ]}
-            src={caseStudyData.outcomes.videoUrl}
-            type="video"
-          />
+          <ScrollReveal delay={60}>
+            <CaseStudyMediaFrame
+              alt={caseStudyData.outcomes.videoAlt}
+              className="relative mt-8 h-[922px] border"
+              mediaClassName="h-full w-full object-cover"
+              overlays={[
+                {
+                  bordered: true,
+                  className: "absolute left-[-13px] top-[-27px] h-[99px] w-[273px]",
+                },
+                {
+                  className: "absolute bottom-[72px] right-[-19px] top-[202px] w-[59px]",
+                  style: { background: "rgba(27,115,189,0.8)" },
+                },
+              ]}
+              src={caseStudyData.outcomes.videoUrl}
+              type="video"
+            />
+          </ScrollReveal>
         </div>
       </section>
     </main>
