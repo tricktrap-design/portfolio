@@ -255,6 +255,9 @@ function Hero({ onOpenCaseStudy }: { onOpenCaseStudy: () => void }) {
               <img
                 alt="Portrait of Emilio Arboleya"
                 className="absolute inset-0 h-full w-full object-cover"
+                decoding="async"
+                fetchPriority="high"
+                loading="eager"
                 src={homePageData.hero.portraitUrl}
               />
               <div
@@ -547,8 +550,38 @@ function CaseStudyMediaFrame({
     style?: CSSProperties;
   }>;
 }) {
+  const frameRef = useRef<HTMLDivElement>(null);
+  const [shouldLoadVideo, setShouldLoadVideo] = useState(type !== "video");
+
+  useEffect(() => {
+    if (type !== "video" || shouldLoadVideo) {
+      return;
+    }
+
+    const frame = frameRef.current;
+    if (!frame || typeof IntersectionObserver === "undefined") {
+      setShouldLoadVideo(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setShouldLoadVideo(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "320px 0px" },
+    );
+
+    observer.observe(frame);
+
+    return () => observer.disconnect();
+  }, [shouldLoadVideo, type]);
+
   return (
     <div
+      ref={frameRef}
       className={className}
       style={{
         borderColor: colorTokens.border.default,
@@ -562,11 +595,17 @@ function CaseStudyMediaFrame({
           loop
           muted
           playsInline
-          preload="metadata"
-          src={src}
+          preload={shouldLoadVideo ? "metadata" : "none"}
+          src={shouldLoadVideo ? src : undefined}
         />
       ) : (
-        <img alt={alt} className={mediaClassName} src={src} />
+        <img
+          alt={alt}
+          className={mediaClassName}
+          decoding="async"
+          loading="lazy"
+          src={src}
+        />
       )}
       {overlays.map((overlay, index) => (
         <div

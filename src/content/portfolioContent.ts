@@ -30,7 +30,7 @@ const publicAsset = (path: string) =>
 
 export const homePageData = {
   hero: {
-    portraitUrl: publicAsset("assets/home-hero-portrait.png"),
+    portraitUrl: publicAsset("assets/home-hero-portrait.webp"),
     nameLines: ["Emilio", "Arboleya"],
     intro:
       "Hello! I design experiences and systems for complex products and lead teams that build them.",
@@ -182,7 +182,7 @@ export const caseStudyData = {
     titleLines: ["Infusion", "Management"],
     summary:
       "Giving acute care nurses one place to review, adjust, administer, and document all infusion activity, supported by smart suggestions and integrated directly into Oracle's EHR.",
-    imageUrl: publicAsset("assets/case study cover.png"),
+    imageUrl: publicAsset("assets/case study cover.webp"),
     imageAlt: "Infusion management overview interface",
   },
   metrics: [
@@ -234,7 +234,7 @@ export const caseStudyData = {
   strategic: {
     intro:
       "Oracle's EHR had no native infusion management capability. Hospitals and infusion centers managing IV therapies were patching the gap with legacy, standalone tools that could not sync with the EHR.",
-    imageUrl: publicAsset("assets/Case study picture.png"),
+    imageUrl: publicAsset("assets/Case study picture.webp"),
     imageAlt: "Annotated side panel comparison and modular drawer examples",
     chips: [
       { label: "cross-team collaboration", accent: "blue" as const },
@@ -270,7 +270,7 @@ export const caseStudyData = {
     ],
   },
   problemDefinition: {
-    imageUrl: publicAsset("assets/Case study picture 2.png"),
+    imageUrl: publicAsset("assets/Case study picture 2.webp"),
     imageAlt: "Clinical dashboard with infusion side panel and patient context",
     chips: [
       { label: "UX strategy", accent: "yellow" as const },
@@ -314,7 +314,7 @@ export const caseStudyData = {
     },
   ] satisfies DecisionRow[],
   systems: {
-    imageUrl: publicAsset("assets/Case study picture 3.png"),
+    imageUrl: publicAsset("assets/Case study picture 3.webp"),
     imageAlt: "Infusion list item anatomy and modular pattern documentation",
     chips: [
       { label: "Design hand-off", accent: "blue" as const },
@@ -340,7 +340,7 @@ export const caseStudyData = {
   outcomes: {
     lead:
       "Here's a sneak peak of the coded demo that allowed for complex interactions and calculations:",
-    videoUrl: publicAsset("assets/outcomes-video.mov"),
+    videoUrl: publicAsset("assets/outcomes-video.mp4"),
     videoAlt: "Infusion management coded demo walkthrough",
     metrics: [
     {
