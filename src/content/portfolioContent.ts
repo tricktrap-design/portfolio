@@ -62,7 +62,7 @@ export const homePageData = {
       id: "infusion-management",
       index: "01",
       title: "Infusion Management",
-      type: "Healthcare EHR System",
+      type: "Oracle Health EHR",
       typeAccent: "subtle" as const,
       summary:
         "Giving acute care nurses one place to review, adjust, administer, and document all infusion activity, supported by smart suggestions.",
