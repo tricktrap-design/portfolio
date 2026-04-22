@@ -31,7 +31,7 @@ const publicAsset = (path: string) =>
 export const homePageData = {
   hero: {
     portraitUrl: publicAsset("assets/home-hero-portrait.webp"),
-    nameLines: ["Emilio", "Arboleya", "Velasco"],
+    nameLines: ["Emilio", "Arboleya"],
     intro:
       "Hello! I design experiences and systems for complex products and lead teams that build them.",
     detailSegments: [
@@ -74,8 +74,21 @@ export const homePageData = {
       ],
     },
     {
-      id: "security-access-dashboard",
+      id: "smart-medication-reconciliation",
       index: "02",
+      title: "Smart Medication Reconciliation",
+      type: "Oracle Health EHR",
+      typeAccent: "subtle" as const,
+      summary:
+      "Automating the manual process of Medication Reconciliation for physicians introducing AI Agents",
+      metrics: [
+        { value: "-52%", label: "Reduced time to complete tasks" },
+        { value: "100%", label: "Tasks automated with AI" },
+      ],
+    },
+    {
+      id: "security-access-dashboard",
+      index: "03",
       title: "Security Access Dashboard",
       type: "Coming soon",
       typeAccent: "rust" as const,
@@ -84,19 +97,6 @@ export const homePageData = {
       metrics: [
         { value: "5.9/7", label: "User Satisfaction" },
         { value: "94%", label: "task completion rate" },
-      ],
-    },
-    {
-      id: "affordable-education-middle-east",
-      index: "02",
-      title: "Affordable Education in Middle East",
-      type: "coming soon",
-      typeAccent: "rust" as const,
-      summary:
-        "State-of-the-art online platform providing practical value in rapidly growing career fields for vulnerable populations in Middle East.",
-      metrics: [
-        { value: "+62%", label: "Adoption with new mobile site" },
-        { value: "3X", label: "Faster task completion rate" },
       ],
     },
   ] satisfies WorkItem[],
@@ -164,6 +164,18 @@ export const aboutPageData = {
     },
     {
       role: "UX Design Lead",
+      company: "Wolters Kluwer | Globant",
+      period: "2020 — 2025",
+      summary:
+        "Led end-to-end UX strategy across healthcare, security, education, and financial products for clients including Wolters Kluwer, Brivo, Luminus Life Plus, and Fiserv.",
+      highlights: [
+        "Improved task completion efficiency by 43% after redesigning key healthcare product experiences.",
+        "Planned roadmaps, metrics, and research with product and development teams across multiple accounts.",
+        "Led designers, stakeholder workshops, and design system maintenance with accessibility standards.",
+      ],
+    },
+    {
+      role: "UX Design Lead",
       company: "Globant",
       period: "2020 — 2025",
       summary:
@@ -199,9 +211,9 @@ export const caseStudyData = {
       tint: "blue" as const,
     },
     {
-      title: "Simple task automation",
-      kpi: "100%",
-      description: "Previously manual steps fully eliminated",
+      title: "Streamlined hand-off",
+      kpi: "35%",
+      description: "Faster implementation with AI",
       tint: "rust" as const,
     },
   ],
@@ -356,9 +368,9 @@ export const caseStudyData = {
       tint: "blue" as const,
     },
     {
-      title: "Simple task automation",
-      kpi: "100%",
-      description: "Previously manual steps fully eliminated",
+      title: "Streamlined hand-off",
+      kpi: "35%",
+      description: "Faster implementation with AI",
       tint: "rust" as const,
     },
     ],
