@@ -77,8 +77,8 @@ export const homePageData = {
       id: "smart-medication-reconciliation",
       index: "02",
       title: "Smart Medication Reconciliation",
-      type: "Oracle Health EHR",
-      typeAccent: "subtle" as const,
+      type: "Coming soon | Oracle Health EHR",
+      typeAccent: "rust" as const,
       summary:
       "Automating the manual process of Medication Reconciliation for physicians introducing AI Agents",
       metrics: [
@@ -90,7 +90,7 @@ export const homePageData = {
       id: "security-access-dashboard",
       index: "03",
       title: "Security Access Dashboard",
-      type: "Coming soon",
+      type: "Coming soon | Brivo",
       typeAccent: "rust" as const,
       summary:
         "Redefining the experience for monitoring security events on large facilities by introducing natural-language processing technologies.",
