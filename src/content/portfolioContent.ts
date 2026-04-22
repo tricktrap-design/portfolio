@@ -31,7 +31,7 @@ const publicAsset = (path: string) =>
 export const homePageData = {
   hero: {
     portraitUrl: publicAsset("assets/home-hero-portrait.webp"),
-    nameLines: ["Emilio", "Arboleya"],
+    nameLines: ["Emilio", "Arboleya", "Velasco"],
     intro:
       "Hello! I design experiences and systems for complex products and lead teams that build them.",
     detailSegments: [
