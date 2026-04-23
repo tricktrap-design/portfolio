@@ -306,7 +306,7 @@ function renderWork() {
   target.innerHTML = workItems
     .map(
       (item, index) => `
-        <a class="work-card ${index === 0 ? "is-featured" : ""}" href="#case-study">
+        <a class="work-card ${index === 0 ? "is-featured" : ""}" href="#infusions-study">
           <p class="work-meta">${item.index}</p>
           <div>
             <h3 class="work-title">${item.title}</h3>
@@ -449,10 +449,10 @@ function renderCaseStudy() {
 function setPage(page) {
   const homePage = document.querySelector('#home-page');
   const caseStudyPage = document.querySelector('#case-study-page');
-  const normalizedPage = page === 'case-study' ? 'case-study' : 'home';
+  const normalizedPage = page === 'infusions-study' ? 'infusions-study' : 'home';
 
   homePage.hidden = normalizedPage !== 'home';
-  caseStudyPage.hidden = normalizedPage !== 'case-study';
+  caseStudyPage.hidden = normalizedPage !== 'infusions-study';
 
   document.querySelectorAll('[data-route]').forEach((link) => {
     const isActive = link.dataset.route === normalizedPage;
@@ -465,7 +465,7 @@ function setPage(page) {
   });
 
   document.title =
-    normalizedPage === 'case-study'
+    normalizedPage === 'infusions-study'
       ? 'Infusion Management | Emilio'
       : 'Emilio | UX Product Design';
 

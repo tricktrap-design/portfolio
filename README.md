@@ -28,5 +28,5 @@ Then visit `http://localhost:8000`.
 
 ## Notes
 
-- The site uses hash navigation (`#home` and `#case-study`) so it works cleanly on GitHub Pages.
+- The site uses hash navigation (`#home` and `#infusions-study`) so it works cleanly on GitHub Pages.
 - Older Vite/React files are still in the repo for reference, but the live site now uses only the static root files.

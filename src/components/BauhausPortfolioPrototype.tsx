@@ -30,17 +30,59 @@ import {
 } from "./portfolio/PortfolioComponents";
 import { ScrollReveal, useScrollReveal } from "./ScrollReveal";
 
+const pagePaths: Record<PortfolioPage, string> = {
+  home: "/",
+  about: "/about",
+  "infusions-study": "/infusions-study",
+};
+
+const redirectStorageKey = "portfolio:redirect-url";
+
+function normalizePathname(pathname: string) {
+  const trimmedPath = pathname.replace(/\/+$/, "");
+  return trimmedPath || "/";
+}
+
+function getPageFromPathname(pathname: string): PortfolioPage | null {
+  const normalizedPath = normalizePathname(pathname);
+
+  if (normalizedPath === pagePaths.home) return "home";
+  if (normalizedPath === pagePaths.about) return "about";
+  if (normalizedPath === pagePaths["infusions-study"]) return "infusions-study";
+
+  return null;
+}
+
+function restoreRedirectedUrl() {
+  if (typeof window === "undefined") return;
+
+  const redirectedUrl = window.sessionStorage.getItem(redirectStorageKey);
+  if (!redirectedUrl) return;
+
+  window.sessionStorage.removeItem(redirectStorageKey);
+
+  const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+  if (currentUrl !== redirectedUrl) {
+    window.history.replaceState(null, "", redirectedUrl);
+  }
+}
+
 function getPageFromLocation(): PortfolioPage {
   if (typeof window === "undefined") return "home";
 
+  restoreRedirectedUrl();
+
+  const pathPage = getPageFromPathname(window.location.pathname);
+  if (pathPage) return pathPage;
+
   const searchParams = new URLSearchParams(window.location.search);
   const pageParam = searchParams.get("page");
-  if (pageParam === "about" || pageParam === "case-study") {
+  if (pageParam === "about" || pageParam === "infusions-study") {
     return pageParam;
   }
 
   const hash = window.location.hash.replace("#", "");
-  if (hash === "about" || hash === "case-study") return hash;
+  if (hash === "about" || hash === "infusions-study") return hash;
 
   return "home";
 }
@@ -242,7 +284,7 @@ function Header({
   onNavigate: (page: PortfolioPage) => void;
   onNavigateToSelectedWork: () => void;
 }) {
-  const activeHome = currentPage === "home" || currentPage === "case-study";
+  const activeHome = currentPage === "home" || currentPage === "infusions-study";
 
   return (
     <header
@@ -1339,29 +1381,26 @@ export default function BauhausPortfolioPrototype() {
   const selectedWorkRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const handleHashChange = () => {
+    const handlePopState = () => {
+      setPendingScrollTarget(null);
       setPage(getPageFromLocation());
     };
 
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
   useEffect(() => {
+    const currentPath = normalizePathname(window.location.pathname);
+    const nextPath = pagePaths[page];
     const searchParams = new URLSearchParams(window.location.search);
+    const hasLegacyPageParam = searchParams.has("page");
+    const legacyHashPage = window.location.hash.replace("#", "");
+    const hasLegacyHashRoute =
+      legacyHashPage === "about" || legacyHashPage === "infusions-study";
 
-    if (page === "home") {
-      searchParams.delete("page");
-    } else {
-      searchParams.set("page", page);
-    }
-
-    const nextSearch = searchParams.toString();
-    const nextUrl = `${window.location.pathname}${nextSearch ? `?${nextSearch}` : ""}${window.location.hash}`;
-    const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
-
-    if (currentUrl !== nextUrl) {
-      window.history.replaceState(null, "", nextUrl);
+    if (currentPath !== nextPath || hasLegacyPageParam || hasLegacyHashRoute) {
+      window.history.replaceState(null, "", nextPath);
     }
 
     window.scrollTo({ top: 0 });
@@ -1392,10 +1431,17 @@ export default function BauhausPortfolioPrototype() {
 
   const handleNavigate = (nextPage: PortfolioPage) => {
     setPendingScrollTarget(null);
+    const nextPath = pagePaths[nextPage];
+    if (normalizePathname(window.location.pathname) !== nextPath) {
+      window.history.pushState(null, "", nextPath);
+    }
     setPage(nextPage);
   };
 
   const handleNavigateToSelectedWork = () => {
+    if (page !== "home") {
+      window.history.pushState(null, "", pagePaths.home);
+    }
     setPendingScrollTarget("selected-work");
     setPage("home");
   };
@@ -1417,7 +1463,7 @@ export default function BauhausPortfolioPrototype() {
 
       {page === "home" ? (
         <HomePage
-          onOpenCaseStudy={() => handleNavigate("case-study")}
+          onOpenCaseStudy={() => handleNavigate("infusions-study")}
           selectedWorkRef={selectedWorkRef}
         />
       ) : page === "about" ? (
