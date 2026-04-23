@@ -1,5 +1,5 @@
-import BauhausPortfolioPrototype from "./BauhausPortfolioPrototype";
+import PortfolioApp from "../features/portfolio";
 
 export function App() {
-  return <BauhausPortfolioPrototype />;
+  return <PortfolioApp />;
 }
