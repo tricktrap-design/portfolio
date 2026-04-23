@@ -197,7 +197,7 @@ function FullscreenImageDialog({
     <div
       aria-label={`Fullscreen view for ${alt}`}
       aria-modal="true"
-      className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(15,17,21,0.88)] p-4 sm:p-6"
+      className="dialog-dissolve fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(15,17,21,0.88)] p-4 sm:p-6"
       onClick={onClose}
       role="dialog"
       tabIndex={-1}
@@ -218,7 +218,7 @@ function FullscreenImageDialog({
       </button>
 
       <div
-        className="relative flex max-h-full w-full max-w-[1200px] items-center justify-center"
+        className="dialog-dissolve__content relative flex max-h-full w-full max-w-[1200px] items-center justify-center"
         onClick={(event) => event.stopPropagation()}
       >
         <img

@@ -94,6 +94,36 @@ button:focus-visible {
   transform: translate3d(0, 0, 0);
 }
 
+@keyframes dialog-dissolve {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog-dissolve-content {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+.dialog-dissolve {
+  animation: dialog-dissolve 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.dialog-dissolve__content {
+  animation: dialog-dissolve-content 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .lift-hover,
   .lift-hover::after {
@@ -110,5 +140,10 @@ button:focus-visible {
     transform: none;
     transition: none;
     will-change: auto;
+  }
+
+  .dialog-dissolve,
+  .dialog-dissolve__content {
+    animation: none;
   }
 }
