@@ -7,6 +7,7 @@ import type {
   DecisionRow,
   WorkItem,
 } from "../../content/portfolioContent";
+import { liftHoverClasses } from "../../styles/interactionClasses";
 import { colorTokens, fontStacks, typeTokens } from "../../styles/designTokens";
 
 function joinClasses(...parts: Array<string | false | null | undefined>) {
@@ -140,9 +141,9 @@ export function PortfolioButton({
       ? label
       : "Open case study";
   const classes = joinClasses(
-    "inline-flex w-fit max-w-full items-center gap-[10px] whitespace-normal text-left transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transform-none motion-reduce:transition-none",
+    "inline-flex w-fit max-w-full items-center gap-[10px] whitespace-normal text-left",
+    !disabled && liftHoverClasses,
     isGhost ? "p-2" : "border px-4 py-3 sm:py-4",
-    !disabled && "hover:-translate-y-[4px] active:translate-y-0",
     disabled && "cursor-not-allowed opacity-60",
     className
   );
@@ -525,9 +526,7 @@ export function CaseStudyItem({
 
   const classes = joinClasses(
     "grid gap-6 border px-4 py-[18px] sm:px-5 md:grid-cols-[56px_minmax(0,0.95fr)_minmax(0,1.45fr)_40px] md:items-start",
-    interactive
-      ? "w-full text-left transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[4px] active:translate-y-0 motion-reduce:transform-none motion-reduce:transition-none"
-      : "",
+    interactive ? joinClasses("w-full text-left", liftHoverClasses) : "",
     className
   );
 

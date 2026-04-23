@@ -152,7 +152,7 @@ export const aboutPageData = {
     {
       role: "Principal UX Designer",
       company: "Oracle Health",
-      period: "Mar 2025 — Present",
+      period: "Mar 2025 — Apr 2026",
       summary:
         "Product design leader for medication workflows inside an enterprise EHR, supporting physicians and nurses in complex critical-care settings.",
       highlights: [
@@ -164,7 +164,7 @@ export const aboutPageData = {
     },
     {
       role: "UX Design Lead",
-      company: "Wolters Kluwer at Globant",
+      company: "Wolters Kluwer | Globant",
       period: "Sep 2024 — Mar 2025",
       summary:
         "Led end-to-end UX strategy for DocuCare, aligning product design with clinical workflows and business objectives for nursing education products.",
@@ -176,7 +176,7 @@ export const aboutPageData = {
     },
     {
       role: "UX Design Lead",
-      company: "Brivo at Globant",
+      company: "Brivo | Globant",
       period: "Jan 2022 — Sep 2024",
       summary:
         "Led UX for data-driven access control and security products, partnering with product and engineering on roadmap, metrics, and team execution.",
@@ -188,7 +188,7 @@ export const aboutPageData = {
     },
     {
       role: "Senior UX Designer",
-      company: "Luminus Life Plus at Globant",
+      company: "Luminus Life Plus | Globant",
       period: "Sep 2021 — Jan 2022",
       summary:
         "Designed tailored learning experiences for students and teachers in the Middle East.",
@@ -200,7 +200,7 @@ export const aboutPageData = {
     },
     {
       role: "UX Designer",
-      company: "Fiserv at Globant",
+      company: "Fiserv | Globant",
       period: "Mar 2021 — Sep 2021",
       summary:
         "Worked on big-data and trend-analysis experiences for financial institutions.",
@@ -216,6 +216,7 @@ export const caseStudyData = {
     titleLines: ["Infusion", "Management"],
     summary:
       "Giving acute care nurses one place to review, adjust, administer, and document all infusion activity, supported by smart suggestions and integrated directly into Oracle's EHR.",
+    fullscreen: true,
     imageUrl: publicAsset("assets/case study cover.webp"),
     imageAlt: "Infusion management overview interface",
   },
@@ -268,6 +269,7 @@ export const caseStudyData = {
   strategic: {
     intro:
       "Oracle's EHR had no native infusion management capability. Hospitals and infusion centers managing IV therapies were patching the gap with legacy, standalone tools that could not sync with the EHR.",
+    fullscreen: true,
     imageUrl: publicAsset("assets/Case study picture.webp"),
     imageAlt: "Annotated side panel comparison and modular drawer examples",
     chips: [
@@ -304,6 +306,7 @@ export const caseStudyData = {
     ],
   },
   problemDefinition: {
+    fullscreen: true,
     imageUrl: publicAsset("assets/Case study picture 2.webp"),
     imageAlt: "Clinical dashboard with infusion side panel and patient context",
     chips: [
@@ -348,6 +351,7 @@ export const caseStudyData = {
     },
   ] satisfies DecisionRow[],
   systems: {
+    fullscreen: true,
     imageUrl: publicAsset("assets/Case study picture 3.webp"),
     imageAlt: "Infusion list item anatomy and modular pattern documentation",
     chips: [

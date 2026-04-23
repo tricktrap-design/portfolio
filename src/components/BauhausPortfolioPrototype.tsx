@@ -1,4 +1,4 @@
-import { ArrowUpRight, MoveLeft } from "lucide-react";
+import { ArrowUpRight, MoveLeft, X } from "lucide-react";
 import {
   useEffect,
   useRef,
@@ -6,6 +6,7 @@ import {
   type CSSProperties,
   type RefObject,
 } from "react";
+import { createPortal } from "react-dom";
 
 import {
   aboutPageData,
@@ -15,6 +16,7 @@ import {
   type PortfolioPage,
 } from "../content/portfolioContent";
 import { colorTokens, fontStacks, typeTokens } from "../styles/designTokens";
+import { liftHoverClasses } from "../styles/interactionClasses";
 import {
   BulletCard,
   CaseStudyItem,
@@ -97,6 +99,137 @@ function HeroInfoCard({
         {description}
       </p>
     </article>
+  );
+}
+
+const MEDIA_FRAME_NO_FULLSCREEN_CLASS = "media-frame--no-fullscreen";
+
+function FullscreenImageDialog({
+  alt,
+  onClose,
+  src,
+}: {
+  alt: string;
+  onClose: () => void;
+  src: string;
+}) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (typeof document === "undefined") {
+      return;
+    }
+
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        onClose();
+        return;
+      }
+
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      const dialog = dialogRef.current;
+      if (!dialog) {
+        return;
+      }
+
+      const focusableSelectors = [
+        'a[href]:not([tabindex="-1"])',
+        'button:not([disabled]):not([tabindex="-1"])',
+        'input:not([disabled]):not([tabindex="-1"])',
+        'select:not([disabled]):not([tabindex="-1"])',
+        'textarea:not([disabled]):not([tabindex="-1"])',
+        '[tabindex]:not([tabindex="-1"])',
+      ].join(", ");
+      const focusableElements = Array.from(
+        dialog.querySelectorAll<HTMLElement>(focusableSelectors),
+      ).filter(
+        (element) =>
+          !element.hasAttribute("disabled") &&
+          element.getAttribute("aria-hidden") !== "true",
+      );
+
+      if (focusableElements.length === 0) {
+        event.preventDefault();
+        dialog.focus();
+        return;
+      }
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+      const activeElement = document.activeElement;
+
+      if (event.shiftKey) {
+        if (activeElement === firstElement || !dialog.contains(activeElement)) {
+          event.preventDefault();
+          lastElement.focus();
+        }
+        return;
+      }
+
+      if (activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
+  if (typeof document === "undefined") {
+    return null;
+  }
+
+  return createPortal(
+    <div
+      aria-label={`Fullscreen view for ${alt}`}
+      aria-modal="true"
+      className="fixed inset-0 z-[120] flex items-center justify-center bg-[rgba(15,17,21,0.88)] p-4 sm:p-6"
+      onClick={onClose}
+      role="dialog"
+      tabIndex={-1}
+      ref={dialogRef}
+    >
+      <button
+        ref={closeButtonRef}
+        aria-label="Close fullscreen image"
+        className="absolute right-2 top-2 z-10 inline-flex h-11 w-11 items-center justify-center border bg-[rgba(232,230,227,0.08)] text-[#E8E6E3] backdrop-blur-sm transition-colors hover:bg-[rgba(232,230,227,0.14)] focus-visible:outline-offset-2 sm:right-3 sm:top-3"
+        onClick={(event) => {
+          event.stopPropagation();
+          onClose();
+        }}
+        style={{ borderColor: "rgba(232,230,227,0.24)" }}
+        type="button"
+      >
+        <X aria-hidden size={18} strokeWidth={2.2} />
+      </button>
+
+      <div
+        className="relative flex max-h-full w-full max-w-[1200px] items-center justify-center"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <img
+          alt={alt}
+          className="block max-h-[calc(100vh-2rem)] max-w-full object-contain shadow-[0_22px_50px_rgba(0,0,0,0.28)] sm:max-h-[calc(100vh-3rem)]"
+          decoding="async"
+          src={src}
+        />
+      </div>
+    </div>,
+    document.body,
   );
 }
 
@@ -573,6 +706,7 @@ function AboutPage() {
 function CaseStudyMediaFrame({
   alt,
   className,
+  fullscreen,
   mediaClassName,
   src,
   type = "image",
@@ -580,6 +714,7 @@ function CaseStudyMediaFrame({
 }: {
   alt: string;
   className?: string;
+  fullscreen?: boolean;
   mediaClassName?: string;
   src: string;
   type?: "image" | "video";
@@ -590,7 +725,14 @@ function CaseStudyMediaFrame({
   }>;
 }) {
   const frameRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(type !== "video");
+  const [isFullscreenOpen, setIsFullscreenOpen] = useState(false);
+  const classDisablesFullscreen = className
+    ?.split(/\s+/)
+    .includes(MEDIA_FRAME_NO_FULLSCREEN_CLASS);
+  const isFullscreenEnabled =
+    type === "image" && (fullscreen ?? !classDisablesFullscreen);
 
   useEffect(() => {
     if (type !== "video" || shouldLoadVideo) {
@@ -618,10 +760,23 @@ function CaseStudyMediaFrame({
     return () => observer.disconnect();
   }, [shouldLoadVideo, type]);
 
+  const closeFullscreen = () => {
+    setIsFullscreenOpen(false);
+
+    if (typeof window === "undefined") {
+      triggerRef.current?.focus();
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      triggerRef.current?.focus();
+    });
+  };
+
   return (
     <div
       ref={frameRef}
-      className={["min-h-[320px] overflow-hidden", className].filter(Boolean).join(" ")}
+      className={["min-h-[320px]", className].filter(Boolean).join(" ")}
       style={{
         borderColor: colorTokens.border.default,
       }}
@@ -637,6 +792,22 @@ function CaseStudyMediaFrame({
           preload={shouldLoadVideo ? "metadata" : "none"}
           src={shouldLoadVideo ? src : undefined}
         />
+      ) : isFullscreenEnabled ? (
+        <button
+          ref={triggerRef}
+          aria-label={`Open ${alt} fullscreen`}
+          className={["block h-full w-full cursor-zoom-in overflow-hidden border-0 bg-transparent p-0 text-left", liftHoverClasses].join(" ")}
+          onClick={() => setIsFullscreenOpen(true)}
+          type="button"
+        >
+          <img
+            alt={alt}
+            className={["block h-full w-full", mediaClassName].filter(Boolean).join(" ")}
+            decoding="async"
+            loading="lazy"
+            src={src}
+          />
+        </button>
       ) : (
         <img
           alt={alt}
@@ -650,7 +821,7 @@ function CaseStudyMediaFrame({
         <div
           // eslint-disable-next-line react/no-array-index-key
           key={`${src}-${index}`}
-          className={overlay.className}
+          className={["pointer-events-none", overlay.className].filter(Boolean).join(" ")}
           style={{
             ...(overlay.bordered
               ? {
@@ -661,6 +832,9 @@ function CaseStudyMediaFrame({
           }}
         />
       ))}
+      {isFullscreenOpen ? (
+        <FullscreenImageDialog alt={alt} onClose={closeFullscreen} src={src} />
+      ) : null}
     </div>
   );
 }
@@ -781,6 +955,7 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
                 <CaseStudyMediaFrame
                   alt={caseStudyData.hero.imageAlt}
                   className="relative h-[360px] border xl:h-[420px] 2xl:mt-[34px] 2xl:h-[505px] 2xl:w-[744px]"
+                  fullscreen={caseStudyData.hero.fullscreen}
                   mediaClassName="h-full w-full object-cover"
                   src={caseStudyData.hero.imageUrl}
                 />
@@ -878,6 +1053,7 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
               <CaseStudyMediaFrame
                 alt={caseStudyData.strategic.imageAlt}
                 className="relative h-[396px] border"
+                fullscreen={caseStudyData.strategic.fullscreen}
                 mediaClassName="h-full w-full object-cover"
                 overlays={[
                   {
@@ -977,6 +1153,7 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
               <CaseStudyMediaFrame
                 alt={caseStudyData.problemDefinition.imageAlt}
                 className="relative h-[380px] border"
+                fullscreen={caseStudyData.problemDefinition.fullscreen}
                 mediaClassName="h-full w-full object-cover"
                 overlays={[
                   {
@@ -1035,6 +1212,7 @@ function CaseStudyPage({ onBack }: { onBack: () => void }) {
               <CaseStudyMediaFrame
                 alt={caseStudyData.systems.imageAlt}
                 className="relative h-[380px] border"
+                fullscreen={caseStudyData.systems.fullscreen}
                 mediaClassName="h-full w-full object-cover"
                 overlays={[
                   {
