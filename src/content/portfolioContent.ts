@@ -152,7 +152,7 @@ export const aboutPageData = {
     {
       role: "Principal UX Designer",
       company: "Oracle Health",
-      period: "2025 — Present",
+      period: "Mar 2025 — Present",
       summary:
         "Product design leader for medication workflows inside an enterprise EHR, supporting physicians and nurses in complex critical-care settings.",
       highlights: [
@@ -164,26 +164,48 @@ export const aboutPageData = {
     },
     {
       role: "UX Design Lead",
-      company: "Wolters Kluwer | Globant",
-      period: "2020 — 2025",
+      company: "Wolters Kluwer at Globant",
+      period: "Sep 2024 — Mar 2025",
       summary:
-        "Led end-to-end UX strategy across healthcare, security, education, and financial products for clients including Wolters Kluwer, Brivo, Luminus Life Plus, and Fiserv.",
+        "Led end-to-end UX strategy for DocuCare, aligning product design with clinical workflows and business objectives for nursing education products.",
       highlights: [
-        "Improved task completion efficiency by 43% after redesigning key healthcare product experiences.",
-        "Planned roadmaps, metrics, and research with product and development teams across multiple accounts.",
-        "Led designers, stakeholder workshops, and design system maintenance with accessibility standards.",
+        "Conducted 10+ user research sessions to capture needs and establish a quantitative KPI baseline.",
+        "Improved task completion efficiency by 43% after redesigning key product experiences.",
+        "Scaled design systems and UX standards to increase consistency and speed up delivery.",
       ],
     },
     {
       role: "UX Design Lead",
-      company: "Globant",
-      period: "2020 — 2025",
+      company: "Brivo at Globant",
+      period: "Jan 2022 — Sep 2024",
       summary:
-        "Led end-to-end UX strategy across healthcare, security, education, and financial products for clients including Wolters Kluwer, Brivo, Luminus Life Plus, and Fiserv.",
+        "Led UX for data-driven access control and security products, partnering with product and engineering on roadmap, metrics, and team execution.",
       highlights: [
-        "Improved task completion efficiency by 43% after redesigning key healthcare product experiences.",
-        "Planned roadmaps, metrics, and research with product and development teams across multiple accounts.",
-        "Led designers, stakeholder workshops, and design system maintenance with accessibility standards.",
+        "Led a team of designers, reviewing work and coordinating design execution across the account.",
+        "Ran research activities and stakeholder workshops to shape priorities and validate direction.",
+        "Maintained the design system and accessibility standards for security-focused product experiences.",
+      ],
+    },
+    {
+      role: "Senior UX Designer",
+      company: "Luminus Life Plus at Globant",
+      period: "Sep 2021 — Jan 2022",
+      summary:
+        "Designed tailored learning experiences for students and teachers in the Middle East.",
+      highlights: [
+        "Created wireframes and low-fidelity concepts to explore and validate solutions early.",
+        "Supported research activities and stakeholder workshops to align user and business needs.",
+        "Collaborated on mockups, handoff, and reusable design system components.",
+      ],
+    },
+    {
+      role: "UX Designer",
+      company: "Fiserv at Globant",
+      period: "Mar 2021 — Sep 2021",
+      summary:
+        "Worked on big-data and trend-analysis experiences for financial institutions.",
+      highlights: [
+        "Helped simplify complex financial analysis workflows into clearer product experiences.",
       ],
     },
   ],
