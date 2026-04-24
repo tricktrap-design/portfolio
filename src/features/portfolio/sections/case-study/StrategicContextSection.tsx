@@ -1,10 +1,14 @@
 import { ScrollReveal } from "../../../../components/ScrollReveal";
 import { colorTokens, typeTokens } from "../../../../styles/designTokens";
-import { caseStudyData } from "../../content/caseStudy";
-import { CaseStudyMediaFrame } from "../../shared/CaseStudyMediaFrame";
+import type { CaseStudyStrategicData } from "../../content/types";
+import { CaseStudyMediaFrame } from "../../shared/media";
 import { BulletCard, SectionLabel, ValueChip } from "../../ui";
 
-export function StrategicContextSection() {
+export function StrategicContextSection({
+  strategic,
+}: {
+  strategic: CaseStudyStrategicData;
+}) {
   return (
     <section
       className="overflow-x-clip border-b"
@@ -22,14 +26,10 @@ export function StrategicContextSection() {
                 color: colorTokens.text.primary,
               }}
             >
-              {caseStudyData.strategic.intro}
+              {strategic.intro}
             </p>
 
-            <BulletCard
-              items={caseStudyData.strategic.constraints}
-              size="m"
-              title="Defining constraints"
-            />
+            <BulletCard items={strategic.constraints} size="m" title="Defining constraints" />
 
             <p
               style={{
@@ -37,38 +37,29 @@ export function StrategicContextSection() {
                 color: colorTokens.text.secondary,
               }}
             >
-              <span>{caseStudyData.strategic.conclusion} </span>
+              <span>{strategic.conclusion} </span>
               <span
                 style={{
                   color: colorTokens.text.primary,
                   fontWeight: 700,
                 }}
               >
-                {caseStudyData.strategic.emphasis}
+                {strategic.emphasis}
               </span>
             </p>
           </ScrollReveal>
 
           <ScrollReveal className="space-y-4" delay={40}>
             <CaseStudyMediaFrame
-              alt={caseStudyData.strategic.imageAlt}
+              alt={strategic.media.alt}
               className="relative h-[396px] border"
-              fullscreen={caseStudyData.strategic.fullscreen}
+              fullscreen={strategic.media.fullscreen}
               mediaClassName="h-full w-full object-cover"
-              overlays={[
-                {
-                  bordered: true,
-                  className: "absolute left-[-13px] top-[-27px] h-[99px] w-[273px]",
-                },
-                {
-                  className: "absolute bottom-[72px] right-[-19px] top-[202px] w-[59px]",
-                  style: { background: "rgba(27,115,189,0.8)" },
-                },
-              ]}
-              src={caseStudyData.strategic.imageUrl}
+              overlays={strategic.media.overlays}
+              src={strategic.media.src}
             />
             <div className="flex flex-wrap gap-2">
-              {caseStudyData.strategic.chips.map((chip, index) => (
+              {strategic.chips.map((chip, index) => (
                 <ScrollReveal
                   key={chip.label}
                   delay={20}
@@ -81,7 +72,7 @@ export function StrategicContextSection() {
             </div>
 
             <BulletCard
-              items={caseStudyData.strategic.whyItMattered}
+              items={strategic.whyItMattered}
               size="s"
               title="Why it mattered"
               variant="secondary"
@@ -92,4 +83,3 @@ export function StrategicContextSection() {
     </section>
   );
 }
-

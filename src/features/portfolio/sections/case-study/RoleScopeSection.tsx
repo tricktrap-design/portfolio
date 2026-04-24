@@ -1,9 +1,9 @@
 import { ScrollReveal } from "../../../../components/ScrollReveal";
 import { colorTokens } from "../../../../styles/designTokens";
-import { caseStudyData } from "../../content/caseStudy";
+import type { CaseStudyRoleData } from "../../content/types";
 import { BulletCard, SectionLabel } from "../../ui";
 
-export function RoleScopeSection() {
+export function RoleScopeSection({ role }: { role: CaseStudyRoleData }) {
   return (
     <section
       className="overflow-x-clip border-b"
@@ -15,11 +15,11 @@ export function RoleScopeSection() {
         </ScrollReveal>
         <div className="mt-7 grid gap-10 xl:grid-cols-2 2xl:grid-cols-[835px_557px]">
           <ScrollReveal>
-            <BulletCard items={caseStudyData.role.owned} size="m" title="What I owned" />
+            <BulletCard items={role.owned} size="m" title="What I owned" />
           </ScrollReveal>
           <ScrollReveal delay={40}>
             <BulletCard
-              items={caseStudyData.role.contributed}
+              items={role.contributed}
               size="m"
               title="What I contributed to"
               variant="secondary"
@@ -30,4 +30,3 @@ export function RoleScopeSection() {
     </section>
   );
 }
-

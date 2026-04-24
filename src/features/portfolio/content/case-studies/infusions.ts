@@ -1,16 +1,18 @@
-import type { DecisionRow } from "./types";
+import type { CaseStudyPageData } from "../types";
 
 const publicAsset = (path: string) =>
   `${import.meta.env.BASE_URL}${encodeURI(path)}`;
 
-export const caseStudyData = {
+export const infusionsStudyData = {
   hero: {
     titleLines: ["Infusion", "Management"],
     summary:
       "Giving acute care nurses one place to review, adjust, administer, and document all infusion activity, supported by smart suggestions and integrated directly into Oracle's EHR.",
-    fullscreen: true,
-    imageUrl: publicAsset("assets/case study cover.webp"),
-    imageAlt: "Infusion management overview interface",
+    media: {
+      alt: "Infusion management overview interface",
+      fullscreen: true,
+      src: publicAsset("assets/case study cover.webp"),
+    },
   },
   metrics: [
     {
@@ -61,9 +63,21 @@ export const caseStudyData = {
   strategic: {
     intro:
       "Oracle's EHR had no native infusion management capability. Hospitals and infusion centers managing IV therapies were patching the gap with legacy, standalone tools that could not sync with the EHR.",
-    fullscreen: true,
-    imageUrl: publicAsset("assets/Case study picture.webp"),
-    imageAlt: "Annotated side panel comparison and modular drawer examples",
+    media: {
+      alt: "Annotated side panel comparison and modular drawer examples",
+      fullscreen: true,
+      overlays: [
+        {
+          bordered: true,
+          className: "absolute left-[-13px] top-[-27px] h-[99px] w-[273px]",
+        },
+        {
+          className: "absolute bottom-[72px] right-[-19px] top-[202px] w-[59px]",
+          style: { background: "rgba(27,115,189,0.8)" },
+        },
+      ],
+      src: publicAsset("assets/Case study picture.webp"),
+    },
     chips: [
       { label: "cross-team collaboration", accent: "blue" as const },
       { label: "iteration", accent: "rust" as const },
@@ -98,9 +112,22 @@ export const caseStudyData = {
     ],
   },
   problemDefinition: {
-    fullscreen: true,
-    imageUrl: publicAsset("assets/Case study picture 2.webp"),
-    imageAlt: "Clinical dashboard with infusion side panel and patient context",
+    media: {
+      alt: "Clinical dashboard with infusion side panel and patient context",
+      fullscreen: true,
+      overlays: [
+        {
+          className: "absolute left-[-27.5px] top-[13.5px] h-[44px] w-[92px]",
+          style: { background: "rgba(200,76,42,0.8)" },
+        },
+        {
+          className:
+            "absolute bottom-[-32.5px] left-[376.5px] right-[-20.5px] h-[54px]",
+          style: { background: "rgba(27,115,189,0.8)" },
+        },
+      ],
+      src: publicAsset("assets/Case study picture 2.webp"),
+    },
     chips: [
       { label: "UX strategy", accent: "yellow" as const },
       { label: "ideation", accent: "yellow" as const },
@@ -141,11 +168,28 @@ export const caseStudyData = {
       rationale:
         "The widget supported situational awareness without pulling nurses out of surrounding clinical context.",
     },
-  ] satisfies DecisionRow[],
+  ],
   systems: {
-    fullscreen: true,
-    imageUrl: publicAsset("assets/Case study picture 3.webp"),
-    imageAlt: "Infusion list item anatomy and modular pattern documentation",
+    media: {
+      alt: "Infusion list item anatomy and modular pattern documentation",
+      fullscreen: true,
+      overlays: [
+        {
+          className: "absolute left-[94.5px] right-[276.5px] top-[-27.5px] h-[58px]",
+          style: { background: "rgba(200,76,42,0.8)" },
+        },
+        {
+          className: "absolute bottom-[16.5px] right-[-22.5px] h-[182px] w-[58px]",
+          style: { background: "rgba(242,201,76,0.7)" },
+        },
+        {
+          bordered: true,
+          className:
+            "absolute bottom-[-26.5px] left-[-14.5px] right-[396.5px] h-[76px]",
+        },
+      ],
+      src: publicAsset("assets/Case study picture 3.webp"),
+    },
     chips: [
       { label: "Design hand-off", accent: "blue" as const },
       { label: "Documentation", accent: "blue" as const },
@@ -168,10 +212,25 @@ export const caseStudyData = {
     ],
   },
   outcomes: {
+    note:
+      "These results were measured in research conditions using a high-fidelity coded demo, not the shipped product. Post-launch measurement was not instrumented at launch, leaving a meaningful gap between prototype performance and live clinical data.",
     lead:
       "Here's a sneak peak of the coded demo that allowed for complex interactions and calculations:",
-    videoUrl: publicAsset("assets/outcomes-video.mp4"),
-    videoAlt: "Infusion management coded demo walkthrough",
+    media: {
+      alt: "Infusion management coded demo walkthrough",
+      overlays: [
+        {
+          bordered: true,
+          className: "absolute left-[-13px] top-[-27px] h-[99px] w-[273px]",
+        },
+        {
+          className: "absolute bottom-[72px] right-[-19px] top-[202px] w-[59px]",
+          style: { background: "rgba(27,115,189,0.8)" },
+        },
+      ],
+      src: publicAsset("assets/outcomes-video.mp4"),
+      type: "video" as const,
+    },
     metrics: [
       {
         title: "User satisfaction",
@@ -193,7 +252,5 @@ export const caseStudyData = {
       },
     ],
   },
-  outcomeNote:
-    "These results were measured in research conditions using a high-fidelity coded demo, not the shipped product. Post-launch measurement was not instrumented at launch, leaving a meaningful gap between prototype performance and live clinical data.",
-};
+} satisfies CaseStudyPageData;
 

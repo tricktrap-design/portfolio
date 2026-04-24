@@ -2,11 +2,19 @@ import { MoveLeft } from "lucide-react";
 
 import { useScrollReveal } from "../../../../components/ScrollReveal";
 import { colorTokens, typeTokens } from "../../../../styles/designTokens";
-import { caseStudyData } from "../../content/caseStudy";
-import { CaseStudyMediaFrame } from "../../shared/CaseStudyMediaFrame";
+import type { CaseStudyHeroData, MetricCardData } from "../../content/types";
+import { CaseStudyMediaFrame } from "../../shared/media";
 import { MetricCard, PortfolioButton } from "../../ui";
 
-export function CaseStudyHero({ onBack }: { onBack: () => void }) {
+export function CaseStudyHero({
+  hero,
+  metrics,
+  onBack,
+}: {
+  hero: CaseStudyHeroData;
+  metrics: MetricCardData[];
+  onBack: () => void;
+}) {
   const heroCopyReveal = useScrollReveal({ delay: 20 });
   const heroMediaReveal = useScrollReveal({ delay: 60 });
   const heroMetricsReveal = useScrollReveal({ delay: 110 });
@@ -66,7 +74,7 @@ export function CaseStudyHero({ onBack }: { onBack: () => void }) {
                     color: colorTokens.text.primary,
                   }}
                 >
-                  {caseStudyData.hero.titleLines.map((line) => (
+                  {hero.titleLines.map((line) => (
                     <span key={line} className="block">
                       {line}
                     </span>
@@ -80,7 +88,7 @@ export function CaseStudyHero({ onBack }: { onBack: () => void }) {
                     color: colorTokens.text.secondary,
                   }}
                 >
-                  {caseStudyData.hero.summary}
+                  {hero.summary}
                 </p>
               </div>
             </div>
@@ -91,11 +99,11 @@ export function CaseStudyHero({ onBack }: { onBack: () => void }) {
               style={heroMediaReveal.style}
             >
               <CaseStudyMediaFrame
-                alt={caseStudyData.hero.imageAlt}
+                alt={hero.media.alt}
                 className="relative h-[360px] border xl:h-[420px] 2xl:mt-[34px] 2xl:h-[505px] 2xl:w-[744px]"
-                fullscreen={caseStudyData.hero.fullscreen}
+                fullscreen={hero.media.fullscreen}
                 mediaClassName="h-full w-full object-cover"
-                src={caseStudyData.hero.imageUrl}
+                src={hero.media.src}
               />
             </div>
           </div>
@@ -106,7 +114,7 @@ export function CaseStudyHero({ onBack }: { onBack: () => void }) {
           className={`${heroMetricsReveal.className} grid items-start gap-4 pt-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-[447px_506px_447px]`}
           style={{ ...heroMetricsReveal.style, position: "relative", zIndex: "99" }}
         >
-          {caseStudyData.metrics.map((metric) => (
+          {metrics.map((metric) => (
             <MetricCard key={metric.title} {...metric} />
           ))}
         </div>
@@ -114,4 +122,3 @@ export function CaseStudyHero({ onBack }: { onBack: () => void }) {
     </section>
   );
 }
-

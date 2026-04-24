@@ -1,9 +1,8 @@
 import { ScrollReveal } from "../../../../components/ScrollReveal";
 import { colorTokens, typeTokens } from "../../../../styles/designTokens";
-import { caseStudyData } from "../../content/caseStudy";
-import { CaseStudyMediaFrame } from "../../shared/CaseStudyMediaFrame";
-import { ProblemQuestionRow } from "../../shared/ProblemQuestionRow";
-import { BulletCard, SectionLabel, ValueChip } from "../../ui";
+import type { CaseStudyProblemDefinitionData } from "../../content/types";
+import { CaseStudyMediaFrame } from "../../shared/media";
+import { BulletCard, QuestionCard, SectionLabel, ValueChip } from "../../ui";
 
 function subtleLabelStyle() {
   return {
@@ -12,7 +11,11 @@ function subtleLabelStyle() {
   };
 }
 
-export function ProblemDefinitionSection() {
+export function ProblemDefinitionSection({
+  problemDefinition,
+}: {
+  problemDefinition: CaseStudyProblemDefinitionData;
+}) {
   return (
     <section
       className="overflow-x-clip border-b"
@@ -24,25 +27,21 @@ export function ProblemDefinitionSection() {
         </ScrollReveal>
         <div className="mt-7 grid gap-4 xl:grid-cols-2 2xl:grid-cols-[708px_708px]">
           <ScrollReveal className="space-y-4">
-            <BulletCard
-              items={caseStudyData.problemDefinition.known}
-              size="m"
-              title="What we knew"
-            />
+            <BulletCard items={problemDefinition.known} size="m" title="What we knew" />
 
             <div className="py-2" style={subtleLabelStyle()}>
               What was uncertain
             </div>
 
             <div className="space-y-2">
-              {caseStudyData.problemDefinition.uncertain.map((item, index) => (
+              {problemDefinition.uncertain.map((item, index) => (
                 <ScrollReveal
                   key={item}
                   delay={40}
                   staggerIndex={index}
                   variant="fade"
                 >
-                  <ProblemQuestionRow text={item} />
+                  <QuestionCard text={item} />
                 </ScrollReveal>
               ))}
             </div>
@@ -50,25 +49,15 @@ export function ProblemDefinitionSection() {
 
           <ScrollReveal className="space-y-4" delay={40}>
             <CaseStudyMediaFrame
-              alt={caseStudyData.problemDefinition.imageAlt}
+              alt={problemDefinition.media.alt}
               className="relative h-[380px] border"
-              fullscreen={caseStudyData.problemDefinition.fullscreen}
+              fullscreen={problemDefinition.media.fullscreen}
               mediaClassName="h-full w-full object-cover"
-              overlays={[
-                {
-                  className: "absolute left-[-27.5px] top-[13.5px] h-[44px] w-[92px]",
-                  style: { background: "rgba(200,76,42,0.8)" },
-                },
-                {
-                  className:
-                    "absolute bottom-[-32.5px] left-[376.5px] right-[-20.5px] h-[54px]",
-                  style: { background: "rgba(27,115,189,0.8)" },
-                },
-              ]}
-              src={caseStudyData.problemDefinition.imageUrl}
+              overlays={problemDefinition.media.overlays}
+              src={problemDefinition.media.src}
             />
             <div className="flex flex-wrap gap-2">
-              {caseStudyData.problemDefinition.chips.map((chip, index) => (
+              {problemDefinition.chips.map((chip, index) => (
                 <ScrollReveal
                   key={chip.label}
                   delay={20}
@@ -81,7 +70,7 @@ export function ProblemDefinitionSection() {
             </div>
 
             <BulletCard
-              items={caseStudyData.problemDefinition.known}
+              items={problemDefinition.known}
               size="s"
               title="What we knew"
               variant="secondary"
@@ -92,4 +81,3 @@ export function ProblemDefinitionSection() {
     </section>
   );
 }
-

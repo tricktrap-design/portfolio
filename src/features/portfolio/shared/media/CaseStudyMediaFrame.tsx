@@ -1,17 +1,12 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { liftHoverClasses } from "../../../styles/interactionClasses";
-import { colorTokens } from "../../../styles/designTokens";
-import { joinClasses } from "./joinClasses";
+import { liftHoverClasses } from "../../../../styles/interactionClasses";
+import { colorTokens } from "../../../../styles/designTokens";
+import type { MediaFrameOverlay } from "../../content/types";
+import { joinClasses } from "../joinClasses";
 import { FullscreenImageDialog } from "./FullscreenImageDialog";
 
 const MEDIA_FRAME_NO_FULLSCREEN_CLASS = "media-frame--no-fullscreen";
-
-type MediaFrameOverlay = {
-  bordered?: boolean;
-  className?: string;
-  style?: CSSProperties;
-};
 
 export function CaseStudyMediaFrame({
   alt,

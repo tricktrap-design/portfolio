@@ -178,3 +178,35 @@ export function OutcomeCard({
   );
 }
 
+export function QuestionCard({
+  className,
+  text,
+}: {
+  className?: string;
+  text: string;
+}) {
+  return (
+    <article
+      className={joinClasses("flex items-center gap-3 border p-4", className)}
+      style={{ borderColor: colorTokens.border.default }}
+    >
+      <span
+        aria-hidden
+        style={{
+          ...typeTokens.label.m,
+          color: colorTokens.text.subtle,
+        }}
+      >
+        +
+      </span>
+      <p
+        style={{
+          ...typeTokens.body.s,
+          color: colorTokens.text.primary,
+        }}
+      >
+        {text}
+      </p>
+    </article>
+  );
+}

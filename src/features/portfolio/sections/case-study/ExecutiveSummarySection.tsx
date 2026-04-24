@@ -1,9 +1,13 @@
 import { ScrollReveal } from "../../../../components/ScrollReveal";
 import { colorTokens } from "../../../../styles/designTokens";
-import { caseStudyData } from "../../content/caseStudy";
+import type { MetricCardData } from "../../content/types";
 import { MetricCard, SectionLabel } from "../../ui";
 
-export function ExecutiveSummarySection() {
+export function ExecutiveSummarySection({
+  summaryCards,
+}: {
+  summaryCards: MetricCardData[];
+}) {
   return (
     <section
       className="overflow-x-clip border-b"
@@ -14,7 +18,7 @@ export function ExecutiveSummarySection() {
           <SectionLabel color="rust">Executive Summary</SectionLabel>
         </ScrollReveal>
         <div className="mt-7 grid items-start gap-4 xl:grid-cols-2 2xl:grid-cols-[381.82px_minmax(0,1fr)_minmax(0,1fr)]">
-          {caseStudyData.executiveSummary.map((metric, index) => (
+          {summaryCards.map((metric, index) => (
             <ScrollReveal
               key={metric.title}
               className={
@@ -43,4 +47,3 @@ export function ExecutiveSummarySection() {
     </section>
   );
 }
-
