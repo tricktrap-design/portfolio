@@ -35,7 +35,9 @@ export function usePortfolioNavigation(): UsePortfolioNavigationResult {
     const hasLegacyPageParam = searchParams.has("page");
     const legacyHashPage = window.location.hash.replace("#", "");
     const hasLegacyHashRoute =
-      legacyHashPage === "about" || legacyHashPage === "infusions-study";
+      legacyHashPage === "about" ||
+      legacyHashPage === "infusions-study" ||
+      legacyHashPage === "medsrec-study";
 
     if (currentPath !== nextPath || hasLegacyPageParam || hasLegacyHashRoute) {
       window.history.replaceState(null, "", nextPath);
@@ -91,4 +93,3 @@ export function usePortfolioNavigation(): UsePortfolioNavigationResult {
     navigateToSelectedWork,
   };
 }
-

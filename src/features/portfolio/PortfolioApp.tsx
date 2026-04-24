@@ -4,6 +4,7 @@ import { usePortfolioNavigation } from "./navigation/usePortfolioNavigation";
 import { AboutPage } from "./pages/AboutPage";
 import { HomePage } from "./pages/HomePage";
 import { InfusionsStudyPage } from "./pages/InfusionsStudyPage";
+import { MedsRecStudyPage } from "./pages/MedsRecStudyPage";
 import { Header } from "./shared/Header";
 import { PortfolioFooter } from "./shared/PortfolioFooter";
 
@@ -28,11 +29,13 @@ export default function PortfolioApp() {
 
       {page === "home" ? (
         <HomePage
-          onOpenCaseStudy={() => navigate("infusions-study")}
+          onOpenCaseStudy={navigate}
           selectedWorkRef={selectedWorkRef}
         />
       ) : page === "about" ? (
         <AboutPage />
+      ) : page === "medsrec-study" ? (
+        <MedsRecStudyPage onBack={() => navigate("home")} />
       ) : (
         <InfusionsStudyPage onBack={() => navigate("home")} />
       )}

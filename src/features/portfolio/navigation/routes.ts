@@ -4,6 +4,7 @@ export const pagePaths: Record<PortfolioPage, string> = {
   home: "/",
   about: "/about",
   "infusions-study": "/infusions-study",
+  "medsrec-study": "/medsrec-study",
 };
 
 const redirectStorageKey = "portfolio:redirect-url";
@@ -19,6 +20,7 @@ export function getPageFromPathname(pathname: string): PortfolioPage | null {
   if (normalizedPath === pagePaths.home) return "home";
   if (normalizedPath === pagePaths.about) return "about";
   if (normalizedPath === pagePaths["infusions-study"]) return "infusions-study";
+  if (normalizedPath === pagePaths["medsrec-study"]) return "medsrec-study";
 
   return null;
 }
@@ -47,13 +49,18 @@ export function getPageFromLocation(): PortfolioPage {
 
   const searchParams = new URLSearchParams(window.location.search);
   const pageParam = searchParams.get("page");
-  if (pageParam === "about" || pageParam === "infusions-study") {
+  if (
+    pageParam === "about" ||
+    pageParam === "infusions-study" ||
+    pageParam === "medsrec-study"
+  ) {
     return pageParam;
   }
 
   const hash = window.location.hash.replace("#", "");
-  if (hash === "about" || hash === "infusions-study") return hash;
+  if (hash === "about" || hash === "infusions-study" || hash === "medsrec-study") {
+    return hash;
+  }
 
   return "home";
 }
-

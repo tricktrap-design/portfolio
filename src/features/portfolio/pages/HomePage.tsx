@@ -1,3 +1,4 @@
+import type { PortfolioPage } from "../content/types";
 import type { RefObject } from "react";
 
 import { AboutStrip } from "../sections/home/AboutStrip";
@@ -8,12 +9,12 @@ export function HomePage({
   onOpenCaseStudy,
   selectedWorkRef,
 }: {
-  onOpenCaseStudy: () => void;
+  onOpenCaseStudy: (page: PortfolioPage) => void;
   selectedWorkRef: RefObject<HTMLElement>;
 }) {
   return (
     <main>
-      <Hero onOpenCaseStudy={onOpenCaseStudy} />
+      <Hero onOpenCaseStudy={() => onOpenCaseStudy("infusions-study")} />
       <WorkIndex
         onOpenCaseStudy={onOpenCaseStudy}
         sectionRef={selectedWorkRef}
@@ -22,4 +23,3 @@ export function HomePage({
     </main>
   );
 }
-

@@ -52,13 +52,15 @@ export const homePageData = {
       id: "smart-medication-reconciliation",
       index: "02",
       title: "Smart Medication Reconciliation",
-      type: "Coming soon | Oracle Health EHR",
-      typeAccent: "rust" as const,
+      type: "Oracle Health EHR",
+      typeAccent: "subtle" as const,
       summary:
-        "Automating the manual process of Medication Reconciliation for physicians introducing AI Agents",
+      "Designing an AI-assisted medication reconciliation workflow that reduces manual review across care transitions while preserving clinical ownership.",
+      highlight: true,
       metrics: [
-        { value: "-52%", label: "Reduced time to complete tasks" },
-        { value: "100%", label: "Tasks automated with AI" },
+        { value: "90%", label: "reuse of existing components" },
+        { value: "-38%", label: "Completion time" },
+        { value: "+90%", label: "Confidence in AI" },
       ],
     },
     {
@@ -95,4 +97,3 @@ export const homePageData = {
     right: "earboleyav@gmail.com | linkedin.com/in/emilio-ux/",
   },
 };
-

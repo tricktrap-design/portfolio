@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { ArrowUpRight } from "lucide-react";
 
 import type { WorkItem } from "../content/types";
 import { liftHoverClasses } from "../../../styles/interactionClasses";
@@ -93,6 +94,7 @@ export function CaseStudyItem({
         <PortfolioButton
           label={`Open ${item.title} case study`}
           showText={false}
+          trailingIcon={ArrowUpRight}
           variant="ghost"
         />
       </div>
@@ -128,4 +130,3 @@ export function CaseStudyItem({
     </article>
   );
 }
-

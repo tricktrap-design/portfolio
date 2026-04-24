@@ -3,15 +3,21 @@ import type { RefObject } from "react";
 import { ScrollReveal } from "../../../../components/ScrollReveal";
 import { colorTokens } from "../../../../styles/designTokens";
 import { homePageData } from "../../content/home";
+import type { PortfolioPage } from "../../content/types";
 import { CaseStudyItem, SectionLabel } from "../../ui";
 
 export function WorkIndex({
   onOpenCaseStudy,
   sectionRef,
 }: {
-  onOpenCaseStudy: () => void;
+  onOpenCaseStudy: (page: PortfolioPage) => void;
   sectionRef: RefObject<HTMLElement>;
 }) {
+  const caseStudyPageByItemId: Partial<Record<string, PortfolioPage>> = {
+    "infusion-management": "infusions-study",
+    "smart-medication-reconciliation": "medsrec-study",
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -28,7 +34,11 @@ export function WorkIndex({
             <ScrollReveal key={item.id} staggerIndex={index}>
               <CaseStudyItem
                 item={item}
-                onClick={index === 0 ? onOpenCaseStudy : undefined}
+                onClick={
+                  caseStudyPageByItemId[item.id]
+                    ? () => onOpenCaseStudy(caseStudyPageByItemId[item.id]!)
+                    : undefined
+                }
               />
             </ScrollReveal>
           ))}
@@ -37,4 +47,3 @@ export function WorkIndex({
     </section>
   );
 }
-

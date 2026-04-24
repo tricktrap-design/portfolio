@@ -11,7 +11,10 @@ export function Header({
   onNavigate: (page: PortfolioPage) => void;
   onNavigateToSelectedWork: () => void;
 }) {
-  const activeHome = currentPage === "home" || currentPage === "infusions-study";
+  const activeHome =
+    currentPage === "home" ||
+    currentPage === "infusions-study" ||
+    currentPage === "medsrec-study";
 
   return (
     <header
@@ -67,4 +70,3 @@ export function Header({
     </header>
   );
 }
-
