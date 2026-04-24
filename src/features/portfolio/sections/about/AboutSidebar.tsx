@@ -47,37 +47,54 @@ export function AboutSidebar() {
 
       <div
         ref={introReveal.ref}
-        className={introReveal.className}
+        className={`${introReveal.className} space-y-3`}
         style={introReveal.style}
       >
-        <p
-          style={{
-            ...typeTokens.body.l,
-            color: colorTokens.text.primary,
-          }}
-        >
-          {aboutPageData.intro}
-        </p>
+        {aboutPageData.intro.map((paragraph) => (
+          <p
+            key={paragraph}
+            style={{
+              ...typeTokens.body.l,
+              color: colorTokens.text.primary,
+            }}
+          >
+            {paragraph}
+          </p>
+        ))}
       </div>
 
       <div
         ref={supportingReveal.ref}
-        className={supportingReveal.className}
+        className={`${supportingReveal.className} space-y-4`}
         style={supportingReveal.style}
       >
-        <p
-          style={{
-            ...typeTokens.body.s,
-            color: colorTokens.text.secondary,
-          }}
-        >
-          {aboutPageData.supporting}
-        </p>
-      </div>
+        {aboutPageData.supporting.map((paragraph) => (
+          <p
+            key={paragraph}
+            style={{
+              ...typeTokens.body.s,
+              color: colorTokens.text.secondary,
+            }}
+          >
+            {paragraph}
+          </p>
+        ))}
 
-      <div className="flex flex-wrap gap-3">
-        {aboutPageData.meta.map((item) => (
-          <ValueChip key={item.label} accent={item.accent} text={item.label} />
+        {aboutPageData.supportingSections.map((section) => (
+          <section key={section.title}>
+            <h2 style={subtleLabelStyle()}>{section.title}</h2>
+            <ul
+              className="mt-3 list-disc space-y-2 pl-5"
+              style={{
+                ...typeTokens.body.s,
+                color: colorTokens.text.secondary,
+              }}
+            >
+              {section.items.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </section>
         ))}
       </div>
 
@@ -118,4 +135,3 @@ export function AboutSidebar() {
     </div>
   );
 }
-

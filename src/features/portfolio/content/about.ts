@@ -4,16 +4,32 @@ const publicAsset = (path: string) =>
 export const aboutPageData = {
   label: "About me",
   name: "Emilio Arboleya",
-  intro:
-    "I design systems for complex products and lead teams to build them. I'm a Principal UX Designer focused on making enterprise software clear, scalable, and consistent.",
-  supporting:
-    "I have 9+ years of experience across B2B SaaS and enterprise products in healthcare, financial, education, and security industries, where usability affects safety, compliance, and daily operations.",
-  meta: [
-    { label: "Mexico City", accent: "blue" as const },
-    { label: "Spanish + English", accent: "rust" as const },
-    { label: "Design systems + product strategy", accent: "yellow" as const },
+  intro: [
+    "I'm a Principal UX Designer focused on making enterprise software clear, scalable, and consistent.",
+  ],
+  supporting: [
+    "I have 9+ years of experience as a UX designer across B2B SaaS and enterprise software in healthcare, financial services, education, and security, where usability affects safety, compliance, and daily operations.",
+  ],
+  supportingSections: [
+    {
+      title: "Direct impact",
+      items: [
+        "Simplified enterprise UX workflows by reducing unnecessary steps and making complex product tasks easier to complete.",
+        "Standardized reusable design system patterns to improve consistency across B2B SaaS and enterprise product experiences.",
+        "Created alignment across Product, Design, and Engineering teams to support scalable, maintainable software delivery.",
+      ],
+    },
+    {
+      title: "My focus",
+      items: [
+        "Partner closely with Product and Engineering to improve delivery quality, speed, and cross-functional decision-making.",
+        "Make accessibility and inclusive design a core part of UX strategy, research, prototyping, and delivery.",
+        "Operate as a player-coach by bringing structure, aligning teams, and staying close to execution while maintaining a system-level view.",
+      ],
+    },
   ],
   expertise: [
+    { label: "Spanish + English", accent: "yellow" as const },
     { label: "Product design", accent: "blue" as const },
     { label: "Research strategy", accent: "rust" as const },
     { label: "Design systems", accent: "yellow" as const },
@@ -22,6 +38,7 @@ export const aboutPageData = {
     { label: "Usability testing", accent: "yellow" as const },
     { label: "Data visualization", accent: "blue" as const },
     { label: "AI-enabled prototyping", accent: "rust" as const },
+    { label: "UX + product strategy", accent: "yellow" as const },
   ],
   education: [
     "C2 Proficient English Certificate — EF Set, 2021",
@@ -92,4 +109,3 @@ export const aboutPageData = {
 };
 
 export const resumeUrl = publicAsset("emilio-arboleya-resume-2026.pdf");
-
