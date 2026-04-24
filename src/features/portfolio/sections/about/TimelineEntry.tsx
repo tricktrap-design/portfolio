@@ -19,7 +19,7 @@ export function TimelineEntry({
       className="border-t py-8 first:border-t-0 first:pt-0"
       style={{ borderColor: colorTokens.border.subtle }}
     >
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_132px] lg:gap-8">
+      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_150px] lg:gap-8">
         <div>
           <h2
             style={{
