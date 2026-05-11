@@ -19,7 +19,7 @@ export function Header({
   return (
     <header
       data-portfolio-header="true"
-      className="sticky top-0 z-[9999] border-b backdrop-blur-[6px]"
+      className="sticky top-0 z-[110] border-b backdrop-blur-[6px]"
       style={{
         borderColor: colorTokens.border.default,
         background: colorTokens.background.header,

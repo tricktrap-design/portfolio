@@ -119,7 +119,7 @@ export function FullscreenImageDialog({
       </button>
 
       <div
-        className="dialog-dissolve__content relative flex max-h-full w-full max-w-[1200px] items-center justify-center"
+        className="dialog-dissolve__content relative flex max-h-full w-full max-w-[1800px] items-center justify-center"
         onClick={(event) => event.stopPropagation()}
       >
         <img
